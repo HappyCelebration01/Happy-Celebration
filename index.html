@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Celebration</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#home">
+          <span class="brand-logo"><img src="logo.svg" alt="Happy Celebration logo" /></span>
+          <span class="brand-text">Happy Celebration</span>
+        </a>
+        <nav class="site-nav">
+          <a href="#packages">Packages</a>
+          <a href="#register">Register</a>
+          <a href="#tools">AI Tools</a>
+          <a href="#gallery">Gallery</a>
+        </nav>
+        <a class="btn btn-primary header-cta" href="#register">Book Event</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-section" id="home">
+        <div class="hero-copy">
+          <div class="tag-list">
+            <span>Love</span>
+            <span>Birthday</span>
+            <span>Anniversary</span>
+            <span>New Born</span>
+            <span>Festival</span>
+          </div>
+          <h1>Never miss a celebration.<br />Make every moment memorable.</h1>
+          <p>Register yourself and your loved ones to celebrate their special days with AI-suggested themes, gifts, captions, and budget-friendly plans.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#register">Register Family</a>
+            <a class="btn btn-secondary" href="#packages">View Packages</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <p class="stat-value">7 days</p>
+            <p class="stat-label">early reminders</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-value">4 AI tools</p>
+            <p class="stat-label">for faster planning</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-value">3 packages</p>
+            <p class="stat-label">for every budget</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-value">10%</p>
+            <p class="stat-label">referral discount</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="packages-section" id="packages">
+        <div class="section-header">
+          <span class="section-title">PACKAGES</span>
+          <h2>Simple celebration plans</h2>
+          <p>Start small, upgrade for decor and media, or go deluxe for a full managed celebration.</p>
+        </div>
+        <div class="package-grid">
+          <article class="package-card">
+            <h3>Basic</h3>
+            <p class="package-subtitle">For intimate home celebrations.</p>
+            <p class="package-price">₹2,999</p>
+            <ul class="package-list">
+              <li>Theme guidance</li>
+              <li>Invitation cards</li>
+              <li>Reminders and notes</li>
+            </ul>
+            <a class="btn btn-primary" href="#register">Choose Basic</a>
+          </article>
+
+          <article class="package-card popular">
+            <div class="popular-badge">Popular</div>
+            <h3>Standard</h3>
+            <p class="package-subtitle">Decor, photos, and smooth planning.</p>
+            <p class="package-price">₹7,999</p>
+            <ul class="package-list">
+              <li>Venue styling</li>
+              <li>Media and photography</li>
+              <li>Event coordination</li>
+            </ul>
+            <a class="btn btn-primary" href="#register">Choose Standard</a>
+          </article>
+
+          <article class="package-card">
+            <h3>Deluxe</h3>
+            <p class="package-subtitle">Complete event setup with premium add-ons.</p>
+            <p class="package-price">₹14,999</p>
+            <ul class="package-list">
+              <li>Premium venue decor</li>
+              <li>Entertainment planning</li>
+              <li>Dedicated event team</li>
+            </ul>
+            <a class="btn btn-primary" href="#register">Choose Deluxe</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="register-section" id="register">
+        <div class="register-content">
+          <div class="register-copy">
+            <p class="eyebrow">FAMILY TREE REGISTRATION</p>
+            <h2>Create your family tree and occasion calendar</h2>
+            <p>Add the Head of Family first, then add children and grandchildren under the right person. Click any person in the tree to see their photo, address, and celebration details.</p>
+            <div class="tree-card">
+              <div class="tree-avatar">H</div>
+              <div>
+                <h3>Start with the Head of Family</h3>
+                <p>Add details to build the family tree.</p>
+              </div>
+            </div>
+            <p class="hint">Add a family member to see upcoming birthday and anniversary reminders.</p>
+          </div>
+
+          <form class="registration-form">
+            <div class="form-row">
+              <label>
+                Head of Family
+                <input type="text" value="Mohammed Khan" />
+              </label>
+            </div>
+            <div class="form-row two-column">
+              <label>
+                Member name
+                <input type="text" value="Ayesha Khan" />
+              </label>
+              <label>
+                Nick name
+                <input type="text" value="Ashi" />
+              </label>
+            </div>
+            <fieldset class="form-group">
+              <legend>Name to show in tree</legend>
+              <label><input type="radio" name="tree-name" checked /> Member name</label>
+              <label><input type="radio" name="tree-name" /> Nick name</label>
+            </fieldset>
+            <div class="form-row two-column">
+              <label>
+                Relationship
+                <select>
+                  <option>Head of Family</option>
+                  <option>Child</option>
+                  <option>Spouse</option>
+                  <option>Grandchild</option>
+                </select>
+              </label>
+              <label>
+                Show under
+                <select>
+                  <option>Head of Family / root</option>
+                  <option>Mohammed Khan</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-row two-column">
+              <label>
+                Birthday
+                <input type="date" />
+              </label>
+              <label>
+                Anniversary
+                <input type="date" />
+              </label>
+            </div>
+            <div class="form-row two-column">
+              <label>
+                Email
+                <input type="email" value="family@example.com" />
+              </label>
+              <label>
+                Mobile
+                <input type="tel" value="+91 98765 43210" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Address
+                <input type="text" value="House number, area, city" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Photo
+                <input type="file" />
+              </label>
+            </div>
+            <button class="btn btn-primary btn-full" type="submit">Save Member</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="tools-section" id="tools">
+        <div class="section-header center">
+          <span class="section-title">AI TOOLS</span>
+          <h2>AI tools for smarter celebrations</h2>
+          <p>Use planning assistants, caption generation, budget calculators, and reminder automation for every event.</p>
+        </div>
+        <div class="tools-grid">
+          <article class="tool-card">
+            <h3>Theme Assistant</h3>
+            <p>Get curated decoration and experience ideas for any occasion.</p>
+          </article>
+          <article class="tool-card">
+            <h3>Gift Finder</h3>
+            <p>Discover meaningful gifts based on the recipient's profile and budget.</p>
+          </article>
+          <article class="tool-card">
+            <h3>Caption Builder</h3>
+            <p>Generate heartfelt messages for cards, posts, and event invites.</p>
+          </article>
+          <article class="tool-card">
+            <h3>Budget Planner</h3>
+            <p>Plan spending with suggestions that keep the celebration polished and affordable.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="gallery-section" id="gallery">
+        <div class="section-header center">
+          <span class="section-title">GALLERY</span>
+          <h2>Moments captured beautifully</h2>
+          <p>Inspire your next celebration with snapshots from decorated events and family gatherings.</p>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-item">Image 1</div>
+          <div class="gallery-item">Image 2</div>
+          <div class="gallery-item">Image 3</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Happy Celebration © 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
