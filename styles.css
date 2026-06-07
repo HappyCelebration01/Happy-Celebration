@@ -2465,6 +2465,8 @@ select {
 /* Minimize bottom padding of panel view to maximize height */
 .screen:has(#panelView.active .family-workspace) .panel-view {
   padding-bottom: 20px;
+  min-height: 0 !important;
+  height: 100% !important;
 }
 
 /* Fix screen height to prevent outer scrolling and maximize vertical space */

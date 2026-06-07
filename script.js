@@ -1378,13 +1378,18 @@ if (urlParams.has("fullscreen") || urlParams.has("fullpage")) {
 }
 const initialPanel = urlParams.get("panel");
 if (initialPanel && panels[initialPanel]) {
-  // Wait a moment for templates and DOM to be fully ready
-  window.addEventListener("DOMContentLoaded", () => {
+  let panelOpened = false;
+  const triggerOpen = () => {
+    if (panelOpened) return;
+    panelOpened = true;
     openPanel(initialPanel);
-  });
+  };
+  
+  // Wait a moment for templates and DOM to be fully ready
+  window.addEventListener("DOMContentLoaded", triggerOpen);
   // Also run immediately if DOM is already loaded
   if (document.readyState === "interactive" || document.readyState === "complete") {
-    openPanel(initialPanel);
+    triggerOpen();
   }
 }
 
