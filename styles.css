@@ -110,23 +110,13 @@ select {
   z-index: 2;
   display: grid;
   justify-items: center;
-  min-height: 150px;
-  padding-top: 18px;
-}
-
-.camera-dot {
-  position: absolute;
-  top: -40px;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 54% 50%, #173a52 0 4px, #481072 5px 8px, #050607 9px 20px, #000 21px);
-  box-shadow: 0 0 0 9px #030304;
+  min-height: 110px;
+  padding-top: 12px;
 }
 
 .brand-mark {
-  width: 140px;
-  height: 90px;
+  width: 100px;
+  height: 65px;
   display: grid;
   justify-items: center;
   align-content: center;
@@ -135,8 +125,8 @@ select {
 }
 
 .brand-logo {
-  width: 125px;
-  height: 85px;
+  width: 90px;
+  height: 60px;
   display: block;
   object-fit: contain;
 }
@@ -173,7 +163,7 @@ select {
 
 .home-view {
   display: none;
-  height: calc(100% - 150px);
+  height: calc(100% - 110px);
   overflow-y: auto;
   padding: 0 36px 40px;
   scrollbar-width: thin;
