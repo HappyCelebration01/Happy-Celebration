@@ -173,7 +173,28 @@ select {
 
 .home-view {
   display: none;
-  padding: 0 36px 110px;
+  height: calc(100% - 202px);
+  overflow-y: auto;
+  padding: 0 36px 40px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 199, 110, 0.35) transparent;
+}
+
+.home-view::-webkit-scrollbar {
+  width: 6px;
+}
+
+.home-view::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.home-view::-webkit-scrollbar-thumb {
+  background: rgba(245, 199, 110, 0.35);
+  border-radius: 999px;
+}
+
+.home-view::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 199, 110, 0.6);
 }
 
 .home-view.active {
@@ -1258,9 +1279,16 @@ select {
   }
 
   .home-view {
-    padding-left: 22px;
-    padding-right: 22px;
-    padding-bottom: 125px;
+    height: auto !important;
+    overflow-y: visible !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+    padding-bottom: 125px !important;
+    scrollbar-width: none !important;
+  }
+
+  .home-view::-webkit-scrollbar {
+    display: none !important;
   }
 
   .menu-grid {
