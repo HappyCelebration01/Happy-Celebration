@@ -1617,6 +1617,12 @@ function initFloatingCelebration() {
   ];
 
   function spawnBubble(initial = false) {
+    // Only spawn bubbles when home view is active
+    const homeView = document.getElementById("homeView");
+    if (!homeView || !homeView.classList.contains("active")) {
+      return;
+    }
+
     const bubble = document.createElement("div");
     bubble.className = "float-bubble";
     
