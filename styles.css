@@ -2731,6 +2731,11 @@ body.theme-luxury .dropdown-group select { border-color: rgba(201, 130, 45, 0.5)
   color: #fff;
 }
 
+/* Hide floating bubbles when any panel view is active */
+.screen:has(#panelView.active) .floating-celebration-container {
+  display: none !important;
+}
+
 
 
 

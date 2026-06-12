@@ -1496,6 +1496,12 @@ function openPanel(name) {
   const panel = panels[name];
   if (!panel) return;
 
+  // Clear floating celebration container to immediately remove active bubbles
+  const container = document.getElementById("floatingCelebrationContainer");
+  if (container) {
+    container.innerHTML = "";
+  }
+
   const template = document.querySelector(`#${panel.template}`);
   panelTitle.textContent = panel.title;
   panelKicker.textContent = panel.kicker;
