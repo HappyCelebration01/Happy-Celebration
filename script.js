@@ -1485,3 +1485,72 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// Floating Celebration Bubbles Spawner
+function initFloatingCelebration() {
+  const container = document.getElementById("floatingCelebrationContainer");
+  if (!container) return;
+
+  const floatImages = [
+    "assets/float-balloons.webp",
+    "assets/float-cake.jpg",
+    "assets/float-flowers.jpeg",
+    "assets/float-wedding.webp",
+    "assets/float-confetti.webp",
+    "assets/float-arch.webp"
+  ];
+
+  function spawnBubble(initial = false) {
+    const bubble = document.createElement("div");
+    bubble.className = "float-bubble";
+    
+    // Pick a random image from the list
+    const randomImg = floatImages[Math.floor(Math.random() * floatImages.length)];
+    bubble.style.backgroundImage = `url('${randomImg}')`;
+
+    // Randomize size between 45px and 75px
+    const size = Math.floor(Math.random() * 30) + 45;
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+
+    // Randomize horizontal position (5% to 95%)
+    bubble.style.left = `${Math.random() * 90 + 5}%`;
+
+    // Randomize vertical offset if initial, to distribute them instantly
+    if (initial) {
+      const bottomOffset = Math.floor(Math.random() * 80) + 10;
+      bubble.style.bottom = `${bottomOffset}%`;
+    }
+
+    // Randomize float up animation duration (8s to 12s)
+    const floatDuration = Math.random() * 4 + 8;
+    // Randomize sway animation duration (3s to 5s)
+    const swayDuration = Math.random() * 2 + 3;
+    
+    bubble.style.animationDuration = `${floatDuration}s, ${swayDuration}s`;
+    // Randomize sway starting delay to offset the phases
+    bubble.style.animationDelay = `0s, ${Math.random() * -4}s`;
+
+    container.appendChild(bubble);
+
+    // Remove from DOM when animation completes
+    setTimeout(() => {
+      bubble.remove();
+    }, floatDuration * 1000);
+  }
+
+  // Spawn initial bubbles so the screen isn't empty on load
+  for (let i = 0; i < 4; i++) {
+    spawnBubble(true);
+  }
+
+  // Periodically spawn new bubbles
+  setInterval(() => spawnBubble(false), 2400);
+}
+
+// Run immediately if DOM is already ready, or wait for DOMContentLoaded
+if (document.readyState === "interactive" || document.readyState === "complete") {
+  initFloatingCelebration();
+} else {
+  document.addEventListener("DOMContentLoaded", initFloatingCelebration);
+}
+

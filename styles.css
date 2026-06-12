@@ -2620,6 +2620,85 @@ body.fullscreen-mode .members-list-list {
 .theme-opt.violet { background: #8b16b4 !important; }
 .theme-opt.luxury { background: #c9822d !important; }
 
+/* Floating Celebration Container */
+.floating-celebration-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Individual Floating Bubble */
+.float-bubble {
+  position: absolute;
+  bottom: -100px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 2.5px solid var(--gold-300);
+  opacity: 0;
+  pointer-events: none;
+  /* Default gold glow, overridden in active themes */
+  box-shadow: 0 4px 15px rgba(245, 199, 110, 0.45);
+  animation: floatUp 10s linear forwards, sway 4s ease-in-out infinite alternate;
+}
+
+/* Theme specific glows for the floating bubbles */
+body.theme-wine .float-bubble {
+  border-color: var(--gold-300);
+  box-shadow: 0 4px 15px rgba(229, 39, 78, 0.5);
+}
+body.theme-emerald .float-bubble {
+  border-color: var(--gold-300);
+  box-shadow: 0 4px 15px rgba(10, 154, 79, 0.5);
+}
+body.theme-sapphire .float-bubble {
+  border-color: var(--gold-300);
+  box-shadow: 0 4px 15px rgba(29, 114, 185, 0.5);
+}
+body.theme-violet .float-bubble {
+  border-color: var(--gold-300);
+  box-shadow: 0 4px 15px rgba(139, 22, 180, 0.5);
+}
+body.theme-luxury .float-bubble {
+  border-color: var(--gold-300);
+  box-shadow: 0 4px 15px rgba(201, 130, 45, 0.5);
+}
+
+/* Animations */
+@keyframes floatUp {
+  0% {
+    bottom: -80px;
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+  10% {
+    opacity: 0.65;
+  }
+  90% {
+    opacity: 0.65;
+  }
+  100% {
+    bottom: 105%;
+    opacity: 0;
+    transform: scale(0.95) rotate(360deg);
+  }
+}
+
+@keyframes sway {
+  0% {
+    margin-left: -25px;
+  }
+  100% {
+    margin-left: 25px;
+  }
+}
+
+
 
 
 
