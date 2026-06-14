@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=54">
+    <link rel="stylesheet" href="styles.css?v=60">
   </head>
   <body>
     <main class="app-shell" aria-label="Happy Celebration application">
@@ -191,6 +191,7 @@
         <div class="family-tabs-nav">
           <button type="button" class="family-tab-nav-btn active" id="editorTabBtn">Member List</button>
           <button type="button" class="family-tab-nav-btn" id="previewTabBtn">Tree Preview</button>
+          <button type="button" class="family-tab-nav-btn" id="syncTabBtn">Data Sync & Share</button>
         </div>
 
         <!-- Editor Tab View -->
@@ -221,6 +222,47 @@
             </div>
           </div>
           <p class="swipe-hint">↔ Tap circles to edit/delete. Swipe/zoom to explore tree ↔</p>
+        </div>
+
+        <!-- Sync Tab View -->
+        <div class="family-sync-view" id="familySyncView" style="display: none;">
+          <div class="sync-card">
+            <h3>Google Sheets Sync</h3>
+            <p>Automatically save and backup your family tree to a Google Sheet, allowing family members to submit their details directly from their own devices.</p>
+            
+            <label class="lux-label" style="display: block; margin-bottom: 14px;">
+              <span style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500; color: var(--gold-300);">Google Apps Script Web App URL</span>
+              <input type="url" id="googleSheetUrlInput" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" style="width: 100%; min-height: 42px; padding: 10px; border-radius: 8px; border: 1px solid rgba(245, 199, 110, 0.4); background: rgba(30, 4, 12, 0.85); color: #fff;">
+            </label>
+            
+            <div class="sync-actions" style="margin-top: 14px; display: flex; gap: 10px;">
+              <button class="primary-action" id="pushToSheetsBtn" type="button" style="flex: 1; min-height: 40px; font-size: 13px;">Push All to Google Sheets</button>
+              <button class="secondary-action" id="saveSyncConfigBtn" type="button" style="flex: 1; min-height: 40px; font-size: 13px;">Save Config</button>
+            </div>
+            
+            <div id="syncStatusMessage" style="margin-top: 12px; font-size: 13px; color: var(--gold-300); font-weight: 500; text-align: center;"></div>
+            
+            <div class="instructions-box" style="margin-top: 20px; padding: 14px; border: 1px dashed rgba(245, 199, 110, 0.3); border-radius: 8px; font-size: 13px; color: #eee; background: rgba(30, 4, 12, 0.35);">
+              <h4 style="color: var(--gold-100); margin-bottom: 8px;">How to set up Google Sheets (100% Free):</h4>
+              <ol style="margin-left: 16px; display: flex; flex-direction: column; gap: 6px; padding-left: 10px;">
+                <li>Create a new Google Sheet.</li>
+                <li>Go to <strong>Extensions &gt; Apps Script</strong>.</li>
+                <li>Delete any default code, paste the script code using the button below.</li>
+                <li>Click <strong>Deploy &gt; New deployment</strong>. Select "Web app", set Execute as "Me", and Who has access to "Anyone".</li>
+                <li>Deploy, authorize permissions, copy the Web App URL, and paste it here!</li>
+              </ol>
+              <button type="button" class="secondary-action" id="copyAppsScriptBtn" style="margin-top: 12px; width: 100%; min-height: 36px; font-size: 12px;">Copy Google Apps Script Code</button>
+            </div>
+          </div>
+          
+          <div class="sync-card" style="margin-top: 20px;">
+            <h3>WhatsApp Submission Tool</h3>
+            <p>Generate a direct WhatsApp sharing text message template or link that family members can use to send you their structured details.</p>
+            
+            <div class="sync-actions" style="margin-top: 14px;">
+              <button class="primary-action" id="generateWaLinkBtn" type="button" style="width: 100%; min-height: 40px; font-size: 13px;">Copy WhatsApp Format & Link</button>
+            </div>
+          </div>
         </div>
 
         <!-- Custom Glassmorphic Popup Modal Overlay -->
@@ -308,6 +350,16 @@
                     </select>
                   </div>
                 </label>
+
+                <label id="modalPhoneLabel" style="margin-top: 14px; display: block;">
+                  <span>Phone Number</span>
+                  <input name="modalPhone" id="modalPhone" type="tel" placeholder="e.g. +91 98765 43210" autocomplete="off" style="width: 100%; min-height: 42px; padding: 10px; border-radius: 8px; border: 1px solid rgba(245, 199, 110, 0.4); background: rgba(30, 4, 12, 0.85); color: #fff;">
+                </label>
+
+                <label id="modalEmailLabel" style="margin-top: 14px; display: block;">
+                  <span>Email ID</span>
+                  <input name="modalEmail" id="modalEmail" type="email" placeholder="e.g. name@email.com" autocomplete="off" style="width: 100%; min-height: 42px; padding: 10px; border-radius: 8px; border: 1px solid rgba(245, 199, 110, 0.4); background: rgba(30, 4, 12, 0.85); color: #fff;">
+                </label>
               </div>
 
               <!-- Spouse Name Field (integrated inline in same view, shown for root/grandparent members) -->
@@ -392,6 +444,6 @@
       </div>
     </template>
 
-    <script src="script.js?v=54"></script>
+    <script src="script.js?v=60"></script>
   </body>
 </html>

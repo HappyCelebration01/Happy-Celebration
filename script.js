@@ -335,9 +335,11 @@ const panels = {
         // Tab elements
         const editorTabBtn = root.querySelector("#editorTabBtn");
         const previewTabBtn = root.querySelector("#previewTabBtn");
+        const syncTabBtn = root.querySelector("#syncTabBtn");
 
         const familyEditorView = root.querySelector("#familyEditorView");
         const familyPreviewView = root.querySelector("#familyPreviewView");
+        const familySyncView = root.querySelector("#familySyncView");
 
         const addMemberBtn = root.querySelector("#addMemberBtn");
         const membersListList = root.querySelector("#membersListList");
@@ -382,6 +384,16 @@ const panels = {
         const modalAnniversaryMonth = root.querySelector("#modalAnniversaryMonth");
         const modalAnniversaryDay = root.querySelector("#modalAnniversaryDay");
         const modalAnniversaryYear = root.querySelector("#modalAnniversaryYear");
+
+        const modalPhone = root.querySelector("#modalPhone");
+        const modalEmail = root.querySelector("#modalEmail");
+
+        const googleSheetUrlInput = root.querySelector("#googleSheetUrlInput");
+        const saveSyncConfigBtn = root.querySelector("#saveSyncConfigBtn");
+        const pushToSheetsBtn = root.querySelector("#pushToSheetsBtn");
+        const copyAppsScriptBtn = root.querySelector("#copyAppsScriptBtn");
+        const generateWaLinkBtn = root.querySelector("#generateWaLinkBtn");
+        const syncStatusMessage = root.querySelector("#syncStatusMessage");
 
         // Populate modal Days selects (1 to 31)
         [modalBirthDay, modalAnniversaryDay].forEach(daySel => {
@@ -478,25 +490,55 @@ const panels = {
           localStorage.setItem("happyCelebrationFamily", JSON.stringify(members));
         }
 
+        // Load initial sync configuration
+        const savedSyncConfig = localStorage.getItem("happyCelebrationSyncConfig");
+        if (savedSyncConfig && googleSheetUrlInput) {
+          const config = JSON.parse(savedSyncConfig);
+          googleSheetUrlInput.value = config.googleSheetUrl || "";
+        }
+
         // Tab Switching Event Listeners
         editorTabBtn.addEventListener("click", () => {
           editorTabBtn.classList.add("active");
           previewTabBtn.classList.remove("active");
+          if (syncTabBtn) syncTabBtn.classList.remove("active");
           
           familyEditorView.style.display = "flex";
           familyPreviewView.style.display = "none";
+          if (familySyncView) familySyncView.style.display = "none";
           renderMemberList();
         });
 
         previewTabBtn.addEventListener("click", () => {
           previewTabBtn.classList.add("active");
           editorTabBtn.classList.remove("active");
+          if (syncTabBtn) syncTabBtn.classList.remove("active");
           
           familyEditorView.style.display = "none";
           familyPreviewView.style.display = "block";
+          if (familySyncView) familySyncView.style.display = "none";
           renderTree();
           setTimeout(fitToScreen, 50);
         });
+
+        if (syncTabBtn) {
+          syncTabBtn.addEventListener("click", () => {
+            syncTabBtn.classList.add("active");
+            editorTabBtn.classList.remove("active");
+            previewTabBtn.classList.remove("active");
+            
+            familyEditorView.style.display = "none";
+            familyPreviewView.style.display = "none";
+            familySyncView.style.display = "block";
+            
+            // Re-load stored Google Sheet config
+            const syncConfig = localStorage.getItem("happyCelebrationSyncConfig");
+            if (syncConfig) {
+              const config = JSON.parse(syncConfig);
+              googleSheetUrlInput.value = config.googleSheetUrl || "";
+            }
+          });
+        }
 
         addMemberBtn.addEventListener("click", () => {
           openModal("add-root");
@@ -637,6 +679,9 @@ const panels = {
           setDropdownDate(modalBirthDay, modalBirthMonth, modalBirthYear, "");
           setDropdownDate(modalAnniversaryDay, modalAnniversaryMonth, modalAnniversaryYear, "");
           modalAnniversaryLabel.style.display = "none";
+
+          if (modalPhone) modalPhone.value = "";
+          if (modalEmail) modalEmail.value = "";
           
           if (actionType === "add-root") {
             modalTitle.textContent = "Add Root Member";
@@ -658,6 +703,9 @@ const panels = {
               
               // Load dates
               setDropdownDate(modalBirthDay, modalBirthMonth, modalBirthYear, member.birthDate || "");
+              
+              if (modalPhone) modalPhone.value = member.phone || "";
+              if (modalEmail) modalEmail.value = member.email || "";
               
               if (member.spouseId) {
                 modalAnniversaryLabel.style.display = "block";
@@ -856,7 +904,7 @@ const panels = {
             }
             
             // CSV Headers
-            const headers = ["Member ID", "Name", "Gender", "Relation", "Spouse Name", "Parent Name", "Birth Date", "Anniversary Date"];
+            const headers = ["Member ID", "Name", "Gender", "Relation", "Spouse Name", "Parent Name", "Birth Date", "Anniversary Date", "Phone Number", "Email ID"];
             
             const rows = members.map(m => {
               const spouse = members.find(s => s.id === m.spouseId);
@@ -870,7 +918,9 @@ const panels = {
                 spouse ? spouse.name : "",
                 parent ? parent.name : "",
                 m.birthDate || "",
-                m.anniversaryDate || ""
+                m.anniversaryDate || "",
+                m.phone || "",
+                m.email || ""
               ].map(val => `"${String(val).replace(/"/g, '""')}"`); // Escape quotes and wrap in quotes for CSV safety
             });
             
@@ -897,6 +947,8 @@ const panels = {
           const targetId = modalTargetId.value;
           const name = modalName.value.trim();
           const gender = modalForm.querySelector('input[name="modalGender"]:checked').value;
+          const phone = modalPhone ? modalPhone.value.trim() : "";
+          const email = modalEmail ? modalEmail.value.trim() : "";
 
           if (!name) return;
 
@@ -910,7 +962,9 @@ const panels = {
               spouseId: "",
               parentId: "",
               birthDate: "",
-              anniversaryDate: ""
+              anniversaryDate: "",
+              phone,
+              email
             };
             
             const spouseNameValue = modalSpouseName.value.trim();
@@ -925,7 +979,9 @@ const panels = {
                 spouseId: rootId,
                 parentId: "",
                 birthDate: "",
-                anniversaryDate: ""
+                anniversaryDate: "",
+                phone: "",
+                email: ""
               };
               rootMember.spouseId = spouseId;
               members.push(spouseMember);
@@ -949,7 +1005,9 @@ const panels = {
                   spouseId: "",
                   parentId: rootId,
                   birthDate: "",
-                  anniversaryDate: ""
+                  anniversaryDate: "",
+                  phone: "",
+                  email: ""
                 };
                 members.push(childMember);
               }
@@ -963,6 +1021,9 @@ const panels = {
               // Save dates
               member.birthDate = getDropdownDate(modalBirthDay, modalBirthMonth, modalBirthYear);
               member.anniversaryDate = getDropdownDate(modalAnniversaryDay, modalAnniversaryMonth, modalAnniversaryYear);
+              
+              member.phone = phone;
+              member.email = email;
               
               // Process spouse
               const spouseNameValue = modalSpouseName.value.trim();
@@ -985,7 +1046,9 @@ const panels = {
                     spouseId: member.id,
                     parentId: member.parentId,
                     birthDate: "",
-                    anniversaryDate: member.anniversaryDate
+                    anniversaryDate: member.anniversaryDate,
+                    phone: "",
+                    email: ""
                   };
                   member.spouseId = spouseId;
                   members.push(spouseMember);
@@ -1034,7 +1097,9 @@ const panels = {
                         spouseId: "",
                         parentId: member.id,
                         birthDate: "",
-                        anniversaryDate: ""
+                        anniversaryDate: "",
+                        phone: "",
+                        email: ""
                       };
                       members.push(childMember);
                     }
@@ -1064,7 +1129,9 @@ const panels = {
                 spouseId: targetMember.id,
                 parentId: targetMember.parentId,
                 birthDate: "",
-                anniversaryDate: ""
+                anniversaryDate: "",
+                phone,
+                email
               };
               targetMember.spouseId = spouseId;
               members.push(spouseMember);
@@ -1082,7 +1149,9 @@ const panels = {
                 spouseId: "",
                 parentId: targetMember.id,
                 birthDate: "",
-                anniversaryDate: ""
+                anniversaryDate: "",
+                phone,
+                email
               };
               members.push(childMember);
             }
@@ -1093,7 +1162,219 @@ const panels = {
           closeModal();
           renderMemberList();
           renderTree();
+
+          // Auto sync to Google Sheets if configured
+          const syncConfigRaw = localStorage.getItem("happyCelebrationSyncConfig");
+          if (syncConfigRaw) {
+            const config = JSON.parse(syncConfigRaw);
+            if (config.googleSheetUrl) {
+              autoSyncToGoogleSheets(config.googleSheetUrl);
+            }
+          }
         });
+
+        // Google Sheets Sync Settings & Actions
+        if (saveSyncConfigBtn) {
+          saveSyncConfigBtn.addEventListener("click", () => {
+            const googleSheetUrl = googleSheetUrlInput.value.trim();
+            localStorage.setItem("happyCelebrationSyncConfig", JSON.stringify({ googleSheetUrl }));
+            if (syncStatusMessage) {
+              syncStatusMessage.style.color = "#a3e635"; // green
+              syncStatusMessage.textContent = "Configuration saved successfully!";
+              setTimeout(() => { syncStatusMessage.textContent = ""; }, 3000);
+            }
+          });
+        }
+
+        if (pushToSheetsBtn) {
+          pushToSheetsBtn.addEventListener("click", () => {
+            const googleSheetUrl = googleSheetUrlInput.value.trim();
+            if (!googleSheetUrl) {
+              if (syncStatusMessage) {
+                syncStatusMessage.style.color = "#f87171"; // red
+                syncStatusMessage.textContent = "Please enter your Google Apps Script URL first.";
+              }
+              return;
+            }
+            
+            if (!members || members.length === 0) {
+              if (syncStatusMessage) {
+                syncStatusMessage.style.color = "#f87171";
+                syncStatusMessage.textContent = "No family members to sync.";
+              }
+              return;
+            }
+            
+            if (syncStatusMessage) {
+              syncStatusMessage.style.color = "var(--gold-300)";
+              syncStatusMessage.textContent = "Syncing data to Google Sheets...";
+            }
+            
+            const payload = members.map(m => {
+              const spouse = members.find(s => s.id === m.spouseId);
+              const parent = members.find(p => p.id === m.parentId);
+              return {
+                id: m.id,
+                name: m.name,
+                gender: m.gender || "",
+                relation: m.relation || "",
+                spouseName: spouse ? spouse.name : "",
+                parentName: parent ? parent.name : "",
+                birthDate: m.birthDate || "",
+                anniversaryDate: m.anniversaryDate || "",
+                phone: m.phone || "",
+                email: m.email || ""
+              };
+            });
+            
+            fetch(googleSheetUrl, {
+              method: "POST",
+              mode: "no-cors",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(payload)
+            })
+            .then(() => {
+              if (syncStatusMessage) {
+                syncStatusMessage.style.color = "#a3e635"; // green
+                syncStatusMessage.textContent = "Data sent to Google Sheets! Check your sheet.";
+              }
+            })
+            .catch(err => {
+              console.error(err);
+              if (syncStatusMessage) {
+                syncStatusMessage.style.color = "#f87171"; // red
+                syncStatusMessage.textContent = "Error syncing data: " + err.message;
+              }
+            });
+          });
+        }
+
+        if (copyAppsScriptBtn) {
+          copyAppsScriptBtn.addEventListener("click", () => {
+            const scriptCode = `function doPost(e) {
+  try {
+    var postContent = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    if (Array.isArray(postContent)) {
+      sheet.clear();
+      var headers = ["Member ID", "Name", "Gender", "Relation", "Spouse Name", "Parent Name", "Birth Date", "Anniversary Date", "Phone Number", "Email ID"];
+      sheet.appendRow(headers);
+      
+      postContent.forEach(function(m) {
+        sheet.appendRow([
+          m.id || "",
+          m.name || "",
+          m.gender || "",
+          m.relation || "",
+          m.spouseName || "",
+          m.parentName || "",
+          m.birthDate || "",
+          m.anniversaryDate || "",
+          m.phone || "",
+          m.email || ""
+        ]);
+      });
+      return ContentService.createTextOutput(JSON.stringify({status: "success", message: "Successfully synced " + postContent.length + " members."}))
+        .setMimeType(ContentService.MimeType.JSON);
+    } else {
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(["Member ID", "Name", "Gender", "Relation", "Spouse Name", "Parent Name", "Birth Date", "Anniversary Date", "Phone Number", "Email ID"]);
+      }
+      sheet.appendRow([
+        postContent.id || "submitted_" + new Date().getTime(),
+        postContent.name || "",
+        postContent.gender || "",
+        postContent.relation || "Submitted",
+        postContent.spouseName || "",
+        postContent.parentName || "",
+        postContent.birthDate || "",
+        postContent.anniversaryDate || "",
+        postContent.phone || "",
+        postContent.email || ""
+      ]);
+      return ContentService.createTextOutput(JSON.stringify({status: "success", message: "Successfully added entry."}))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({status: "error", message: err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return HtmlService.createHtmlOutput("<h3>Google Sheets Sync API is active!</h3><p>Please use POST requests to submit data.</p>");
+}`;
+            
+            navigator.clipboard.writeText(scriptCode)
+              .then(() => {
+                const oldText = copyAppsScriptBtn.textContent;
+                copyAppsScriptBtn.textContent = "Copied! ✓";
+                setTimeout(() => { copyAppsScriptBtn.textContent = oldText; }, 2000);
+              })
+              .catch(err => {
+                alert("Failed to copy code.");
+              });
+          });
+        }
+
+        if (generateWaLinkBtn) {
+          generateWaLinkBtn.addEventListener("click", () => {
+            if (!members || members.length === 0) {
+              alert("No family members to format.");
+              return;
+            }
+            
+            let message = "✦ Family Tree Data Summary ✦\n\n";
+            members.forEach(m => {
+              const spouse = members.find(s => s.id === m.spouseId);
+              message += `• Name: ${m.name}\n`;
+              message += `  Relation: ${m.relation} (${m.gender})\n`;
+              if (m.birthDate) message += `  DOB: ${m.birthDate}\n`;
+              if (m.anniversaryDate) message += `  Anniversary: ${m.anniversaryDate}\n`;
+              if (m.phone) message += `  Phone: ${m.phone}\n`;
+              if (m.email) message += `  Email: ${m.email}\n`;
+              if (spouse) message += `  Spouse: ${spouse.name}\n`;
+              message += "\n";
+            });
+            
+            navigator.clipboard.writeText(message)
+              .then(() => {
+                alert("Family details formatted and copied to clipboard! You can paste it directly into WhatsApp.");
+              })
+              .catch(err => {
+                alert("Failed to copy details.");
+              });
+          });
+        }
+
+        function autoSyncToGoogleSheets(url) {
+          if (!url || !members || members.length === 0) return;
+          const payload = members.map(m => {
+            const spouse = members.find(s => s.id === m.spouseId);
+            const parent = members.find(p => p.id === m.parentId);
+            return {
+              id: m.id,
+              name: m.name,
+              gender: m.gender || "",
+              relation: m.relation || "",
+              spouseName: spouse ? spouse.name : "",
+              parentName: parent ? parent.name : "",
+              birthDate: m.birthDate || "",
+              anniversaryDate: m.anniversaryDate || "",
+              phone: m.phone || "",
+              email: m.email || ""
+            };
+          });
+          fetch(url, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          }).catch(err => console.error("Auto-sync error:", err));
+        }
 
         // Event delegation on tree canvas
         treeCanvas.addEventListener("click", (e) => {
@@ -1452,15 +1733,15 @@ const panels = {
               if (!currentFamily || JSON.parse(currentFamily).length === 0) {
                 // Prepopulate with default family tree data, including birthdays and anniversaries!
                 const demoFamily = [
-                  { id: "grandparent", name: "Grandparent", gender: "Male", relation: "Grandparent", spouseId: "", birthDate: "05/12/1950", anniversaryDate: "" },
-                  { id: "aleena", name: "Aleena", gender: "Female", relation: "Parent", parentId: "grandparent", spouseId: "", birthDate: "09/18/1982", anniversaryDate: "" },
-                  { id: "alisha", name: "Alisha", gender: "Female", relation: "Parent", parentId: "grandparent", spouseId: "rafi", birthDate: "10/12/1986", anniversaryDate: "06/23/2014" },
-                  { id: "rafi", name: "Rafi", gender: "Male", relation: "Parent", parentId: "", spouseId: "alisha", birthDate: "04/05/1984", anniversaryDate: "06/23/2014" },
-                  { id: "amjad", name: "Amjad", gender: "Male", relation: "Parent", parentId: "grandparent", spouseId: "subeena", birthDate: "08/14/1985", anniversaryDate: "03/12/2012" },
-                  { id: "subeena", name: "Subeena", gender: "Female", relation: "Parent", parentId: "", spouseId: "amjad", birthDate: "11/20/1988", anniversaryDate: "03/12/2012" },
-                  { id: "adab", name: "Adab", gender: "Female", relation: "Child", parentId: "alisha", spouseId: "", birthDate: "06/15/2018", anniversaryDate: "" },
-                  { id: "ali", name: "Ali", gender: "Male", relation: "Child", parentId: "alisha", spouseId: "", birthDate: "11/02/2020", anniversaryDate: "" },
-                  { id: "eva", name: "Eva", gender: "Female", relation: "Child", parentId: "amjad", spouseId: "", birthDate: "06/09/2016", anniversaryDate: "" }
+                  { id: "grandparent", name: "Grandparent", gender: "Male", relation: "Grandparent", spouseId: "", birthDate: "05/12/1950", anniversaryDate: "", phone: "", email: "" },
+                  { id: "aleena", name: "Aleena", gender: "Female", relation: "Parent", parentId: "grandparent", spouseId: "", birthDate: "09/18/1982", anniversaryDate: "", phone: "", email: "" },
+                  { id: "alisha", name: "Alisha", gender: "Female", relation: "Parent", parentId: "grandparent", spouseId: "rafi", birthDate: "10/12/1986", anniversaryDate: "06/23/2014", phone: "", email: "" },
+                  { id: "rafi", name: "Rafi", gender: "Male", relation: "Parent", parentId: "", spouseId: "alisha", birthDate: "04/05/1984", anniversaryDate: "06/23/2014", phone: "", email: "" },
+                  { id: "amjad", name: "Amjad", gender: "Male", relation: "Parent", parentId: "grandparent", spouseId: "subeena", birthDate: "08/14/1985", anniversaryDate: "03/12/2012", phone: "", email: "" },
+                  { id: "subeena", name: "Subeena", gender: "Female", relation: "Parent", parentId: "", spouseId: "amjad", birthDate: "11/20/1988", anniversaryDate: "03/12/2012", phone: "", email: "" },
+                  { id: "adab", name: "Adab", gender: "Female", relation: "Child", parentId: "alisha", spouseId: "", birthDate: "06/15/2018", anniversaryDate: "", phone: "", email: "" },
+                  { id: "ali", name: "Ali", gender: "Male", relation: "Child", parentId: "alisha", spouseId: "", birthDate: "11/02/2020", anniversaryDate: "", phone: "", email: "" },
+                  { id: "eva", name: "Eva", gender: "Female", relation: "Child", parentId: "amjad", spouseId: "", birthDate: "06/09/2016", anniversaryDate: "", phone: "", email: "" }
                 ];
                 localStorage.setItem("happyCelebrationFamily", JSON.stringify(demoFamily));
               }

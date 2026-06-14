@@ -2736,6 +2736,52 @@ body.theme-luxury .dropdown-group select { border-color: rgba(201, 130, 45, 0.5)
   display: none !important;
 }
 
+/* Family Sync View */
+.family-sync-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+.sync-card {
+  background: rgba(30, 4, 12, 0.45);
+  border: 1px solid rgba(245, 199, 110, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.sync-card h3 {
+  color: var(--gold-100);
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 0;
+}
+
+.sync-card p {
+  color: var(--soft);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+/* Theme overrides for sync card border */
+body.theme-wine .sync-card { border-color: rgba(229, 39, 78, 0.3); }
+body.theme-emerald .sync-card { border-color: rgba(10, 154, 79, 0.3); }
+body.theme-sapphire .sync-card { border-color: rgba(29, 114, 185, 0.3); }
+body.theme-violet .sync-card { border-color: rgba(139, 22, 180, 0.3); }
+body.theme-luxury .sync-card { border-color: rgba(201, 130, 45, 0.3); }
+
+
 
 
 
