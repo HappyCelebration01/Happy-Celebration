@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=66">
+    <link rel="stylesheet" href="styles.css?v=67">
   </head>
   <body>
     <main class="app-shell" aria-label="Happy Celebration application">
@@ -208,6 +208,16 @@
 
         <!-- Preview Tab View -->
         <div class="family-preview-view" id="familyPreviewView" style="display: none;">
+          <!-- Search Bar for Family Tree -->
+          <div class="tree-search-container">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="treeSearchInput" placeholder="Search family member..." autocomplete="off">
+              <button type="button" id="clearSearchBtn" style="display: none;">&times;</button>
+            </div>
+            <div class="search-suggestions" id="treeSearchSuggestions" style="display: none;"></div>
+          </div>
+
           <div class="tree-zoom-controls">
             <button type="button" class="zoom-btn" id="zoomOutBtn" aria-label="Zoom Out">−</button>
             <span class="zoom-label" id="zoomLabel">100%</span>
@@ -264,6 +274,62 @@
             
             <div class="sync-actions" style="margin-top: 14px;">
               <button class="primary-action" id="generateWaLinkBtn" type="button" style="width: 100%; min-height: 40px; font-size: 13px;">Copy WhatsApp Format & Link</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Member Profile Details Card Overlay -->
+        <div id="profileCardOverlay" class="tree-modal-overlay" style="display: none;">
+          <div class="tree-modal-content profile-card-content">
+            <button type="button" class="profile-close-btn" id="profileCloseBtn" aria-label="Close profile">&times;</button>
+            
+            <div class="profile-header">
+              <div class="profile-avatar" id="profileAvatar">-</div>
+              <h3 class="profile-name" id="profileName">Member Name</h3>
+              <span class="profile-relation" id="profileRelation">Relation</span>
+            </div>
+            
+            <div class="profile-body">
+              <div class="profile-info-row" id="profileBirthRow">
+                <span class="info-icon">🎂</span>
+                <div>
+                  <span class="info-label">Birthday</span>
+                  <span class="info-value" id="profileBirthDate">-</span>
+                </div>
+              </div>
+              
+              <div class="profile-info-row" id="profileAnniversaryRow" style="display: none;">
+                <span class="info-icon">💍</span>
+                <div>
+                  <span class="info-label">Wedding Anniversary</span>
+                  <span class="info-value" id="profileAnniversaryDate">-</span>
+                </div>
+              </div>
+
+              <div class="profile-info-row" id="profilePhoneRow">
+                <span class="info-icon">📞</span>
+                <div>
+                  <span class="info-label">Contact Number</span>
+                  <span class="info-value" id="profilePhone">-</span>
+                </div>
+              </div>
+
+              <div class="profile-info-row" id="profileEmailRow">
+                <span class="info-icon">✉️</span>
+                <div>
+                  <span class="info-label">Email ID</span>
+                  <span class="info-value" id="profileEmail">-</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-actions">
+              <div class="contact-quick-actions">
+                <a href="#" id="profileCallAction" class="quick-action-btn call" title="Call"><span class="action-icon">📞</span>Call</a>
+                <a href="#" id="profileWaAction" class="quick-action-btn whatsapp" title="WhatsApp"><span class="action-icon">💬</span>WhatsApp</a>
+                <a href="#" id="profileEmailAction" class="quick-action-btn email" title="Email"><span class="action-icon">✉️</span>Email</a>
+              </div>
+              <button type="button" class="primary-action" id="profileEditBtn" style="width: 100%; margin-top: 14px;">Edit Details</button>
             </div>
           </div>
         </div>
@@ -447,6 +513,6 @@
       </div>
     </template>
 
-    <script src="script.js?v=66"></script>
+    <script src="script.js?v=67"></script>
   </body>
 </html>

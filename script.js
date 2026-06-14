@@ -396,6 +396,25 @@ const panels = {
         const generateWaLinkBtn = root.querySelector("#generateWaLinkBtn");
         const syncStatusMessage = root.querySelector("#syncStatusMessage");
 
+        const treeSearchInput = root.querySelector("#treeSearchInput");
+        const treeSearchSuggestions = root.querySelector("#treeSearchSuggestions");
+        const clearSearchBtn = root.querySelector("#clearSearchBtn");
+
+        const profileCardOverlay = root.querySelector("#profileCardOverlay");
+        const profileCloseBtn = root.querySelector("#profileCloseBtn");
+        const profileAvatar = root.querySelector("#profileAvatar");
+        const profileName = root.querySelector("#profileName");
+        const profileRelation = root.querySelector("#profileRelation");
+        const profileBirthDate = root.querySelector("#profileBirthDate");
+        const profileAnniversaryRow = root.querySelector("#profileAnniversaryRow");
+        const profileAnniversaryDate = root.querySelector("#profileAnniversaryDate");
+        const profilePhone = root.querySelector("#profilePhone");
+        const profileEmail = root.querySelector("#profileEmail");
+        const profileCallAction = root.querySelector("#profileCallAction");
+        const profileWaAction = root.querySelector("#profileWaAction");
+        const profileEmailAction = root.querySelector("#profileEmailAction");
+        const profileEditBtn = root.querySelector("#profileEditBtn");
+
         // Populate modal Days selects (1 to 31)
         [modalBirthDay, modalAnniversaryDay].forEach(daySel => {
           if (daySel) {
@@ -625,6 +644,104 @@ const panels = {
 
         zoomFitBtn.addEventListener("click", fitToScreen);
 
+        function focusMemberOnTree(memberId) {
+          const cardElement = treeCanvas.querySelector(`[data-id="${memberId}"]`);
+          if (!cardElement) return;
+
+          // Set zoomLevel to 1.0 for better readability when focusing
+          zoomLevel = 1.0;
+          applyZoom();
+
+          // Smoothly scroll the container to center the card
+          setTimeout(() => {
+            const cardOffsetLeft = cardElement.offsetLeft;
+            const cardOffsetTop = cardElement.offsetTop;
+            const cardWidth = cardElement.offsetWidth;
+            const cardHeight = cardElement.offsetHeight;
+
+            treeCanvasWrapper.scrollTo({
+              left: cardOffsetLeft * zoomLevel - treeCanvasWrapper.clientWidth / 2 + (cardWidth * zoomLevel) / 2,
+              top: cardOffsetTop * zoomLevel - treeCanvasWrapper.clientHeight / 2 + (cardHeight * zoomLevel) / 2,
+              behavior: "smooth"
+            });
+
+            // Highlight the card
+            cardElement.classList.add("highlight-pulse");
+            setTimeout(() => {
+              cardElement.classList.remove("highlight-pulse");
+            }, 3000);
+          }, 50);
+        }
+
+        if (treeSearchInput) {
+          treeSearchInput.addEventListener("input", (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) {
+              if (clearSearchBtn) clearSearchBtn.style.display = "none";
+              if (treeSearchSuggestions) {
+                treeSearchSuggestions.style.display = "none";
+                treeSearchSuggestions.innerHTML = "";
+              }
+              return;
+            }
+
+            if (clearSearchBtn) clearSearchBtn.style.display = "block";
+
+            // Filter members matching query
+            const matches = members.filter(m => m.name.toLowerCase().includes(query));
+
+            if (treeSearchSuggestions) {
+              if (matches.length > 0) {
+                treeSearchSuggestions.innerHTML = matches.map(m => `
+                  <div class="suggestion-item" data-id="${m.id}">
+                    <span>${escapeHtml(m.name)}</span>
+                    <span class="item-relation">${escapeHtml(m.relation)}</span>
+                  </div>
+                `).join("");
+                treeSearchSuggestions.style.display = "block";
+              } else {
+                treeSearchSuggestions.innerHTML = `<div style="padding: 10px 14px; font-size: 13px; color: rgba(255,255,255,0.45);">No members found</div>`;
+                treeSearchSuggestions.style.display = "block";
+              }
+            }
+          });
+
+          // Handle suggestion clicks
+          if (treeSearchSuggestions) {
+            treeSearchSuggestions.addEventListener("click", (e) => {
+              const item = e.target.closest(".suggestion-item");
+              if (item) {
+                const memberId = item.dataset.id;
+                const member = members.find(m => m.id === memberId);
+                if (member) {
+                  treeSearchInput.value = member.name;
+                  treeSearchSuggestions.style.display = "none";
+                  focusMemberOnTree(memberId);
+                }
+              }
+            });
+          }
+
+          // Clear search
+          if (clearSearchBtn) {
+            clearSearchBtn.addEventListener("click", () => {
+              treeSearchInput.value = "";
+              clearSearchBtn.style.display = "none";
+              if (treeSearchSuggestions) {
+                treeSearchSuggestions.style.display = "none";
+                treeSearchSuggestions.innerHTML = "";
+              }
+            });
+          }
+
+          // Hide suggestions when clicking outside
+          document.addEventListener("click", (e) => {
+            if (treeSearchSuggestions && !treeSearchSuggestions.contains(e.target) && e.target !== treeSearchInput) {
+              treeSearchSuggestions.style.display = "none";
+            }
+          });
+        }
+
         // Drag scrolling logic
         let isDown = false;
         let startX, startY, scrollLeft, scrollTop;
@@ -792,6 +909,114 @@ const panels = {
         function closeModal() {
           treeModal.style.display = "none";
           modalForm.reset();
+        }
+
+        let activeProfileMemberId = null;
+
+        function openProfileCard(memberId) {
+          const member = members.find(m => m.id === memberId);
+          if (!member) return;
+
+          activeProfileMemberId = memberId;
+          
+          const initials = member.name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
+          profileAvatar.textContent = initials;
+          
+          if (member.gender === "Female") {
+            profileAvatar.classList.add("female");
+          } else {
+            profileAvatar.classList.remove("female");
+          }
+
+          profileName.textContent = member.name;
+          profileRelation.textContent = member.relation;
+
+          if (member.birthDate) {
+            const parts = member.birthDate.split("/");
+            if (parts.length === 3) {
+              const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+              const mIdx = parseInt(parts[0], 10) - 1;
+              const formattedDate = `${months[mIdx] || parts[0]} ${parts[1]}, ${parts[2]}`;
+              profileBirthDate.textContent = formattedDate;
+            } else {
+              profileBirthDate.textContent = member.birthDate;
+            }
+            root.querySelector("#profileBirthRow").style.display = "flex";
+          } else {
+            profileBirthDate.textContent = "-";
+            root.querySelector("#profileBirthRow").style.display = "flex";
+          }
+
+          if (member.anniversaryDate) {
+            const parts = member.anniversaryDate.split("/");
+            if (parts.length === 3) {
+              const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+              const mIdx = parseInt(parts[0], 10) - 1;
+              const formattedDate = `${months[mIdx] || parts[0]} ${parts[1]}, ${parts[2]}`;
+              profileAnniversaryDate.textContent = formattedDate;
+            } else {
+              profileAnniversaryDate.textContent = member.anniversaryDate;
+            }
+            profileAnniversaryRow.style.display = "flex";
+          } else {
+            profileAnniversaryRow.style.display = "none";
+          }
+
+          profilePhone.textContent = member.phone || "Not provided";
+          profileEmail.textContent = member.email || "Not provided";
+
+          if (member.phone) {
+            profileCallAction.href = `tel:${member.phone}`;
+            profileCallAction.classList.remove("disabled");
+            
+            const cleanPhone = member.phone.replace(/\D/g, "");
+            const waMsg = encodeURIComponent(`Hello ${member.name}!`);
+            profileWaAction.href = `https://wa.me/${cleanPhone.startsWith('91') || cleanPhone.length > 10 ? cleanPhone : '91' + cleanPhone}?text=${waMsg}`;
+            profileWaAction.classList.remove("disabled");
+          } else {
+            profileCallAction.removeAttribute("href");
+            profileCallAction.classList.add("disabled");
+            
+            profileWaAction.removeAttribute("href");
+            profileWaAction.classList.add("disabled");
+          }
+
+          if (member.email) {
+            profileEmailAction.href = `mailto:${member.email}`;
+            profileEmailAction.classList.remove("disabled");
+          } else {
+            profileEmailAction.removeAttribute("href");
+            profileEmailAction.classList.add("disabled");
+          }
+
+          profileCardOverlay.style.display = "flex";
+        }
+
+        function closeProfileCard() {
+          profileCardOverlay.style.display = "none";
+          activeProfileMemberId = null;
+        }
+
+        if (profileCloseBtn) {
+          profileCloseBtn.addEventListener("click", closeProfileCard);
+        }
+
+        if (profileCardOverlay) {
+          profileCardOverlay.addEventListener("click", (e) => {
+            if (e.target === profileCardOverlay) {
+              closeProfileCard();
+            }
+          });
+        }
+
+        if (profileEditBtn) {
+          profileEditBtn.addEventListener("click", () => {
+            if (activeProfileMemberId) {
+              const targetId = activeProfileMemberId;
+              closeProfileCard();
+              openModal("edit", targetId);
+            }
+          });
         }
 
         function setGenderSelection(gender) {
@@ -1515,7 +1740,7 @@ function doGet(e) {
           const card = e.target.closest(".tree-node-card");
           if (card) {
             const memberId = card.dataset.id;
-            openModal("edit", memberId);
+            openProfileCard(memberId);
             return;
           }
           const addFirstBtn = e.target.closest("#addFirstMemberBtn");
@@ -1942,6 +2167,14 @@ function closePanel() {
 
 document.querySelectorAll("[data-panel]").forEach((button) => {
   button.addEventListener("click", () => openPanel(button.dataset.panel));
+  
+  button.addEventListener("mousemove", (e) => {
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    button.style.setProperty("--mouse-x", `${x}px`);
+    button.style.setProperty("--mouse-y", `${y}px`);
+  });
 });
 
 backButton.addEventListener("click", closePanel);
