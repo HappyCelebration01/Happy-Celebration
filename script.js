@@ -644,12 +644,7 @@ const panels = {
         const relationshipSelectorTitle = root.querySelector("#relationshipSelectorTitle");
         const relationshipSelectorMultipleBtn = root.querySelector("#relationshipSelectorMultipleBtn");
 
-        // Alive and Death Date Elements
-        const modalIsAlive = root.querySelector("#modalIsAlive");
-        const modalDeathDateLabel = root.querySelector("#modalDeathDateLabel");
-        const modalDeathMonth = root.querySelector("#modalDeathMonth");
-        const modalDeathDay = root.querySelector("#modalDeathDay");
-        const modalDeathYear = root.querySelector("#modalDeathYear");
+        // Alive and Death Date Elements (removed)
 
         // Multiple Parents Elements
         const modalMultipleParentsContainer = root.querySelector("#modalMultipleParentsContainer");
@@ -662,7 +657,7 @@ const panels = {
         let relationshipSelectorTargetId = null;
 
         // Populate modal Days selects (1 to 31)
-        [modalBirthDay, modalAnniversaryDay, modalDeathDay].forEach(daySel => {
+        [modalBirthDay, modalAnniversaryDay].forEach(daySel => {
           if (daySel) {
             // Keep the placeholder first option
             daySel.innerHTML = '<option value="">Day</option>';
@@ -676,8 +671,8 @@ const panels = {
           }
         });
 
-        // Populate modal Birth/Death Years (current down to 1900)
-        [modalBirthYear, modalDeathYear].forEach(yearSel => {
+        // Populate modal Birth Years (current down to 1900)
+        [modalBirthYear].forEach(yearSel => {
           if (yearSel) {
             yearSel.innerHTML = '<option value="">Year</option>';
             const currentYear = new Date().getFullYear();
@@ -702,14 +697,6 @@ const panels = {
           }
         }
 
-        // Toggle Death Date dropdown visibility
-        if (modalIsAlive) {
-          modalIsAlive.addEventListener("change", () => {
-            if (modalDeathDateLabel) {
-              modalDeathDateLabel.style.display = modalIsAlive.checked ? "none" : "block";
-            }
-          });
-        }
 
         // Relationship Selector Modal Helpers & Handlers
         function closeRelationshipSelector() {
@@ -1215,10 +1202,7 @@ const panels = {
           
           setDropdownDate(modalBirthDay, modalBirthMonth, modalBirthYear, "");
           setDropdownDate(modalAnniversaryDay, modalAnniversaryMonth, modalAnniversaryYear, "");
-          setDropdownDate(modalDeathDay, modalDeathMonth, modalDeathYear, "");
           modalAnniversaryLabel.style.display = "none";
-          if (modalDeathDateLabel) modalDeathDateLabel.style.display = "none";
-          if (modalIsAlive) modalIsAlive.checked = true;
           if (modalMultipleParentsContainer) {
             modalMultipleParentsContainer.style.display = "none";
             modalFatherName.value = "";
@@ -1257,15 +1241,7 @@ const panels = {
               
               if (modalPhone) modalPhone.value = member.phone || "";
               if (modalEmail) modalEmail.value = member.email || "";
-              
-              // Load deceased status
-              if (modalIsAlive) {
-                modalIsAlive.checked = !member.isDeceased;
-                if (modalDeathDateLabel) {
-                  modalDeathDateLabel.style.display = member.isDeceased ? "block" : "none";
-                }
-              }
-              setDropdownDate(modalDeathDay, modalDeathMonth, modalDeathYear, member.deathDate || "");
+
 
               if (member.spouseId) {
                 modalAnniversaryLabel.style.display = "block";
@@ -1403,8 +1379,6 @@ const panels = {
           // Reset layouts
           if (modalMainFields) modalMainFields.style.display = "block";
           if (modalMultipleParentsContainer) modalMultipleParentsContainer.style.display = "none";
-          if (modalDeathDateLabel) modalDeathDateLabel.style.display = "none";
-          if (modalIsAlive) modalIsAlive.checked = true;
         }
 
         let activeProfileMemberId = null;
@@ -1736,9 +1710,9 @@ const panels = {
 
           if (action !== "add-parents" && !name) return;
 
-          const isDeceased = modalIsAlive ? !modalIsAlive.checked : false;
+          const isDeceased = false;
           const birthDate = getDropdownDate(modalBirthDay, modalBirthMonth, modalBirthYear);
-          const deathDate = isDeceased ? getDropdownDate(modalDeathDay, modalDeathMonth, modalDeathYear) : "";
+          const deathDate = "";
           const anniversaryDate = getDropdownDate(modalAnniversaryDay, modalAnniversaryMonth, modalAnniversaryYear);
 
           if (action === "add-root") {
