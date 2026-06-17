@@ -41,7 +41,7 @@ function updateRegistrationState() {
     }
 
     if (registerCard) {
-      const spanText = registerCard.querySelector("span:last-of-type") || registerCard.querySelector(".cultfit-label");
+      const spanText = registerCard.querySelector(".cultfit-label");
       if (spanText) {
         spanText.textContent = "My Profile";
       }
@@ -88,7 +88,7 @@ function updateRegistrationState() {
     }
 
     if (registerCard) {
-      const spanText = registerCard.querySelector("span:last-of-type") || registerCard.querySelector(".cultfit-label");
+      const spanText = registerCard.querySelector(".cultfit-label");
       if (spanText) {
         spanText.textContent = "Register";
       }
