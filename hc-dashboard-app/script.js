@@ -47,7 +47,8 @@ function updateRegistrationState() {
       }
       const icon = registerCard.querySelector(".icon") || registerCard.querySelector(".cultfit-icon-circle");
       if (icon) {
-        icon.style.background = "linear-gradient(135deg, var(--gold-300), var(--rose-line))";
+        icon.style.background = "radial-gradient(circle, rgba(245, 199, 110, 0.45) 0%, rgba(245, 199, 110, 0) 70%)";
+        icon.style.filter = "drop-shadow(0 0 8px rgba(245, 199, 110, 0.6))";
       }
     }
 
@@ -94,6 +95,7 @@ function updateRegistrationState() {
       const icon = registerCard.querySelector(".icon") || registerCard.querySelector(".cultfit-icon-circle");
       if (icon) {
         icon.style.background = "";
+        icon.style.filter = "";
       }
     }
     if (greetingBanner) {
