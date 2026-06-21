@@ -1210,7 +1210,7 @@ select {
     display: flex !important;
     flex-direction: column;
     height: calc(100vh - 64px) !important;
-    overflow-y: hidden !important;
+    overflow-y: auto !important;
     padding-left: 22px !important;
     padding-right: 22px !important;
     padding-bottom: 24px !important;
@@ -4776,6 +4776,401 @@ body.theme-luxury .dashboard-card { border-color: rgba(201, 130, 45, 0.2); }
 
 .event-countdown-badge:hover {
   transform: scale(1.05);
+}
+
+/* ==========================================================================
+   8 NEW DYNAMIC CELEBRATION & FESTIVAL THEMES
+   ========================================================================== */
+
+body.theme-birthday-male {
+  --screen-bg: #010915;
+  --screen-radial-1: rgba(192, 192, 192, 0.2);
+  --screen-radial-2: rgba(0, 119, 255, 0.2);
+  --screen-linear: linear-gradient(180deg, rgba(0, 51, 102, 0.92), rgba(1, 10, 26, 0.98) 64%);
+  --diagonal-glow-1: rgba(0, 153, 255, 0.33);
+  --diagonal-glow-2: rgba(0, 119, 255, 0.72);
+  --diagonal-glow-3: rgba(0, 51, 102, 0.26);
+  --card-border: rgba(0, 119, 255, 0.84);
+  --card-bg-gradient: linear-gradient(145deg, rgba(0, 51, 102, 0.54), rgba(1, 10, 26, 0.78));
+  --card-bg-solid: rgba(1, 20, 51, 0.56);
+  --card-shadow-inner: rgba(0, 119, 255, 0.04);
+  --dropdown-bg: rgba(1, 20, 51, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.15);
+}
+
+body.theme-birthday-female {
+  --screen-bg: #150012;
+  --screen-radial-1: rgba(255, 105, 180, 0.2);
+  --screen-radial-2: rgba(186, 85, 211, 0.2);
+  --screen-linear: linear-gradient(180deg, rgba(80, 0, 60, 0.92), rgba(26, 0, 20, 0.98) 64%);
+  --diagonal-glow-1: rgba(255, 105, 180, 0.33);
+  --diagonal-glow-2: rgba(186, 85, 211, 0.72);
+  --diagonal-glow-3: rgba(80, 0, 60, 0.26);
+  --card-border: rgba(255, 105, 180, 0.84);
+  --card-bg-gradient: linear-gradient(145deg, rgba(80, 0, 60, 0.54), rgba(26, 0, 20, 0.78));
+  --card-bg-solid: rgba(40, 1, 30, 0.56);
+  --card-shadow-inner: rgba(255, 105, 180, 0.04);
+  --dropdown-bg: rgba(40, 1, 30, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.15);
+}
+
+body.theme-anniversary-young {
+  --screen-bg: #1a0005;
+  --screen-radial-1: rgba(245, 199, 110, 0.2);
+  --screen-radial-2: rgba(255, 0, 50, 0.2);
+  --screen-linear: linear-gradient(180deg, rgba(95, 0, 18, 0.92), rgba(30, 0, 5, 0.98) 64%);
+  --diagonal-glow-1: rgba(255, 50, 100, 0.33);
+  --diagonal-glow-2: rgba(255, 0, 50, 0.72);
+  --diagonal-glow-3: rgba(95, 0, 18, 0.26);
+  --card-border: rgba(255, 0, 50, 0.84);
+  --card-bg-gradient: linear-gradient(145deg, rgba(95, 0, 18, 0.54), rgba(30, 0, 5, 0.78));
+  --card-bg-solid: rgba(50, 0, 10, 0.56);
+  --card-shadow-inner: rgba(255, 0, 50, 0.04);
+  --dropdown-bg: rgba(50, 0, 10, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.15);
+}
+
+body.theme-anniversary-old {
+  --screen-bg: #060608;
+  --screen-radial-1: rgba(245, 199, 110, 0.22);
+  --screen-radial-2: rgba(235, 235, 240, 0.15);
+  --screen-linear: linear-gradient(180deg, rgba(22, 22, 26, 0.94), rgba(6, 6, 8, 0.98) 64%);
+  --diagonal-glow-1: rgba(245, 199, 110, 0.25);
+  --diagonal-glow-2: rgba(201, 130, 45, 0.72);
+  --diagonal-glow-3: rgba(22, 22, 26, 0.26);
+  --card-border: rgba(201, 130, 45, 0.84);
+  --card-bg-gradient: linear-gradient(145deg, rgba(22, 22, 26, 0.54), rgba(6, 6, 8, 0.78));
+  --card-bg-solid: rgba(15, 15, 18, 0.56);
+  --card-shadow-inner: rgba(245, 199, 110, 0.04);
+  --dropdown-bg: rgba(15, 15, 18, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.15);
+}
+
+body.theme-festival-diwali {
+  --screen-bg: #1a0800;
+  --screen-radial-1: rgba(245, 199, 110, 0.25);
+  --screen-radial-2: rgba(255, 102, 0, 0.2);
+  --screen-linear: linear-gradient(180deg, rgba(95, 40, 0, 0.92), rgba(30, 10, 0, 0.98) 64%);
+  --diagonal-glow-1: rgba(255, 130, 30, 0.33);
+  --diagonal-glow-2: rgba(255, 102, 0, 0.72);
+  --diagonal-glow-3: rgba(95, 40, 0, 0.26);
+  --card-border: rgba(255, 102, 0, 0.84);
+  --card-bg-gradient: linear-gradient(145deg, rgba(95, 40, 0, 0.54), rgba(30, 10, 0, 0.78));
+  --card-bg-solid: rgba(50, 20, 0, 0.56);
+  --card-shadow-inner: rgba(255, 102, 0, 0.04);
+  --dropdown-bg: rgba(50, 20, 0, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.15);
+}
+
+body.theme-festival-eid {
+  --screen-bg: #010f07;
+  --screen-radial-1: rgba(240, 245, 242, 0.18);
+  --screen-radial-2: rgba(16, 185, 129, 0.2);
+  --screen-linear: linear-gradient(180deg, rgba(6, 78, 59, 0.92), rgba(1, 15, 10, 0.98) 64%);
+  --diagonal-glow-1: rgba(52, 211, 153, 0.33);
+  --diagonal-glow-2: rgba(16, 185, 129, 0.72);
+  --diagonal-glow-3: rgba(6, 78, 59, 0.26);
+  --card-border: rgba(16, 185, 129, 0.84);
+  --card-bg-gradient: linear-gradient(145deg, rgba(6, 78, 59, 0.54), rgba(1, 15, 10, 0.78));
+  --card-bg-solid: rgba(4, 30, 15, 0.56);
+  --card-shadow-inner: rgba(16, 185, 129, 0.04);
+  --dropdown-bg: rgba(4, 30, 15, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.15);
+}
+
+body.theme-festival-christmas {
+  --screen-bg: #0b0204;
+  --screen-radial-1: rgba(34, 197, 94, 0.18);
+  --screen-radial-2: rgba(239, 68, 68, 0.2);
+  --screen-linear: linear-gradient(180deg, rgba(75, 15, 30, 0.92), rgba(15, 3, 6, 0.98) 64%);
+  --diagonal-glow-1: rgba(248, 113, 113, 0.33);
+  --diagonal-glow-2: rgba(220, 38, 38, 0.72);
+  --diagonal-glow-3: rgba(20, 83, 45, 0.26);
+  --card-border: rgba(220, 38, 38, 0.84);
+  --card-bg-gradient: linear-gradient(145deg, rgba(20, 83, 45, 0.54), rgba(15, 3, 6, 0.78));
+  --card-bg-solid: rgba(30, 5, 10, 0.56);
+  --card-shadow-inner: rgba(220, 38, 38, 0.04);
+  --dropdown-bg: rgba(30, 5, 10, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.15);
+}
+
+body.theme-festival-holi {
+  --screen-bg: #0a0110;
+  --screen-radial-1: rgba(236, 72, 153, 0.22);
+  --screen-radial-2: rgba(59, 130, 246, 0.22);
+  --screen-linear: linear-gradient(180deg, rgba(67, 10, 95, 0.92), rgba(10, 2, 18, 0.98) 64%);
+  --diagonal-glow-1: rgba(244, 63, 94, 0.35);
+  --diagonal-glow-2: rgba(168, 85, 247, 0.72);
+  --diagonal-glow-3: rgba(234, 179, 8, 0.26);
+  --card-border: rgba(168, 85, 247, 0.84);
+  --card-bg-gradient: linear-gradient(145deg, rgba(67, 10, 95, 0.54), rgba(10, 2, 18, 0.78));
+  --card-bg-solid: rgba(24, 6, 40, 0.56);
+  --card-shadow-inner: rgba(236, 72, 153, 0.04);
+  --dropdown-bg: rgba(24, 6, 40, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   AIRTEL-STYLE DASHBOARD THEMES PLANNER CARDS
+   ========================================================================== */
+
+.airtel-card-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 18px 0 24px 0;
+  width: 100%;
+}
+
+.airtel-hero-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(245, 199, 110, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 22px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.airtel-hero-icon {
+  font-size: 34px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.airtel-hero-tag {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gold-300);
+  letter-spacing: 1.5px;
+  margin-bottom: 4px;
+}
+
+.airtel-hero-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px 0;
+}
+
+.airtel-hero-desc {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 14px 0;
+  line-height: 1.4;
+  max-width: 90%;
+}
+
+.airtel-hero-btn {
+  background: linear-gradient(135deg, var(--gold-300) 0%, var(--gold-500) 100%);
+  border: none;
+  color: #120206;
+  font-weight: 700;
+  font-size: 11.5px;
+  padding: 8px 20px;
+  border-radius: 99px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(245, 199, 110, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.airtel-hero-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(245, 199, 110, 0.45);
+}
+
+.airtel-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.airtel-mini-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 18px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 118px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.airtel-mini-tag {
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gold-300);
+  letter-spacing: 1px;
+}
+
+.airtel-mini-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  margin: 4px 0 2px 0;
+}
+
+.airtel-mini-desc {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+}
+
+.airtel-mini-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-weight: 700;
+  font-size: 9.5px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.2s, border-color 0.2s;
+  outline: none;
+}
+
+.airtel-mini-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================================
+   HEADER HAMBURGER MENU & SETTINGS DRAWER STYLING
+   ========================================================================== */
+
+.menu-toggle-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.menu-toggle-btn:hover {
+  transform: scale(1.1);
+}
+
+.drawer-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+  display: none;
+}
+
+.drawer-overlay.open {
+  display: block;
+}
+
+.settings-drawer {
+  position: absolute;
+  top: 0;
+  left: -290px;
+  width: 280px;
+  height: 100%;
+  background: rgba(20, 2, 8, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-right: 1.5px solid rgba(245, 199, 110, 0.2);
+  border-radius: 0 24px 24px 0;
+  z-index: 1000;
+  transition: left 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  padding: 20px;
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.55);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-drawer.open {
+  left: 0;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+}
+
+.drawer-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.drawer-close-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.drawer-close-btn:hover {
+  color: #fff;
+}
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+}
+
+/* Mock date picker styles inside themes planner */
+.mock-date-picker {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(245, 199, 110, 0.15);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mock-date-picker span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-300);
+}
+
+.mock-date-picker select {
+  width: 100%;
+  background: #150006;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  outline: none;
 }
 
 

@@ -3450,22 +3450,382 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Floating Celebration Bubbles Spawner
+// ==========================================================================
+// DYNAMIC CELEBRATION THEMES PLANNER ENGINE
+// ==========================================================================
+
+function getCelebrationThemeForDate(date) {
+  const m = date.getMonth(); // 0-11
+  const d = date.getDate();
+  const targetMD = `${m + 1}/${d}`;
+
+  // Load family members
+  let members = [];
+  try {
+    const raw = localStorage.getItem("happyCelebrationFamily");
+    members = raw ? JSON.parse(raw) : [];
+  } catch (e) {}
+
+  // 1. Birthdays (highly personal)
+  const bdaysToday = members.filter(member => {
+    if (!member.birthDate) return false;
+    const parts = member.birthDate.split("/");
+    if (parts.length >= 2) {
+      return `${parseInt(parts[0], 10)}/${parseInt(parts[1], 10)}` === targetMD;
+    }
+    return false;
+  });
+
+  if (bdaysToday.length > 0) {
+    const kid = bdaysToday.find(member => ["son", "daughter", "child"].includes((member.relation || "").toLowerCase())) || bdaysToday[0];
+    const isMale = (kid.gender || "").toLowerCase() === "male";
+    if (isMale) {
+      return {
+        id: `birthday-${kid.id}`,
+        name: `${kid.name}'s Birthday! 🎂`,
+        themeClass: "theme-birthday-male",
+        icon: "🎈",
+        desc: `Celebrating ${kid.name}'s Birthday with bright, energetic Blue & Silver colors and floating balloons.`,
+        bubbleChar: "🎈",
+        tag: "BIRTHDAY THEME"
+      };
+    } else {
+      return {
+        id: `birthday-${kid.id}`,
+        name: `${kid.name}'s Birthday! 🎂`,
+        themeClass: "theme-birthday-female",
+        icon: "🌸",
+        desc: `Celebrating ${kid.name}'s Birthday with a cheerful Pink & Violet palette and playful sparkles.`,
+        bubbleChar: "🌸",
+        tag: "BIRTHDAY THEME"
+      };
+    }
+  }
+
+  // 2. Anniversaries (personal)
+  const annivsToday = members.filter(member => {
+    if (!member.anniversaryDate) return false;
+    const parts = member.anniversaryDate.split("/");
+    if (parts.length >= 2) {
+      return `${parseInt(parts[0], 10)}/${parseInt(parts[1], 10)}` === targetMD;
+    }
+    return false;
+  });
+
+  if (annivsToday.length > 0) {
+    const annivMember = annivsToday[0];
+    let years = 1;
+    const parts = annivMember.anniversaryDate.split("/");
+    if (parts.length === 3) {
+      const year = parseInt(parts[2], 10);
+      if (!isNaN(year)) {
+        years = date.getFullYear() - year;
+      }
+    }
+
+    if (years >= 25) {
+      return {
+        id: `anniversary-${annivMember.id}`,
+        name: `${annivMember.name}'s Anniversary (${years} yrs) 💍`,
+        themeClass: "theme-anniversary-old",
+        icon: "💍",
+        desc: `Celebrating a milestone 25+ years Silver/Golden jubilee with an elegant Black & Gold vintage palette.`,
+        bubbleChar: "✨",
+        tag: "ANNIVERSARY THEME"
+      };
+    } else {
+      return {
+        id: `anniversary-${annivMember.id}`,
+        name: `${annivMember.name}'s Anniversary (${years} yrs) 💖`,
+        themeClass: "theme-anniversary-young",
+        icon: "💖",
+        desc: `Celebrating ${years} years of love with a romantic, fresh Red & Gold palette and floating hearts.`,
+        bubbleChar: "💖",
+        tag: "ANNIVERSARY THEME"
+      };
+    }
+  }
+
+  // 3. Festivals (calendar events)
+  // Diwali: Oct 30 - Nov 5
+  if ((m === 9 && d >= 30) || (m === 10 && d <= 5)) {
+    return {
+      id: "festival-diwali",
+      name: "Diwali Celebration Theme 🪔",
+      themeClass: "theme-festival-diwali",
+      icon: "🪔",
+      desc: "Deep Orange + Gold. Celebrating the festival of lights with glowing diyas and sparkling fireworks.",
+      bubbleChar: "🪔",
+      tag: "FESTIVAL THEME"
+    };
+  }
+
+  // Eid: Mar 30 - Apr 2
+  if ((m === 2 && d >= 30) || (m === 3 && d <= 2)) {
+    return {
+      id: "festival-eid",
+      name: "Eid Celebration Theme 🌙",
+      themeClass: "theme-festival-eid",
+      icon: "🌙",
+      desc: "Emerald Green + White. Celebrating Eid with crescent moons, stars, and lantern glow.",
+      bubbleChar: "🌙",
+      tag: "FESTIVAL THEME"
+    };
+  }
+
+  // Christmas: Dec 24 - Dec 26
+  if (m === 11 && d >= 24 && d <= 26) {
+    return {
+      id: "festival-christmas",
+      name: "Christmas Celebration Theme 🎄",
+      themeClass: "theme-festival-christmas",
+      icon: "🎄",
+      desc: "Red + Green. Holiday vibes featuring cozy snowflakes, stars, and decorated fir trees.",
+      bubbleChar: "❄️",
+      tag: "FESTIVAL THEME"
+    };
+  }
+
+  // Holi: Mar 10 - Mar 15
+  if (m === 2 && d >= 10 && d <= 15) {
+    return {
+      id: "festival-holi",
+      name: "Holi Celebration Theme 🎨",
+      themeClass: "theme-festival-holi",
+      icon: "🎨",
+      desc: "Multicolor Splash. Bright vibrant gradients showcasing organic color balloons and water splashes.",
+      bubbleChar: "🎨",
+      tag: "FESTIVAL THEME"
+    };
+  }
+
+  return null;
+}
+
+function updateActiveTheme() {
+  let activeDate = new Date();
+  const mockMonthSelect = document.getElementById("mockMonth");
+  const mockDaySelect = document.getElementById("mockDay");
+  if (mockMonthSelect && mockDaySelect) {
+    const mm = parseInt(mockMonthSelect.value, 10);
+    const dd = parseInt(mockDaySelect.value, 10);
+    activeDate = new Date(activeDate.getFullYear(), mm, dd);
+  }
+
+  const celebration = getCelebrationThemeForDate(activeDate);
+
+  // Clear all themes
+  document.body.classList.remove(
+    "theme-wine", "theme-emerald", "theme-sapphire", "theme-violet", "theme-luxury",
+    "theme-birthday-male", "theme-birthday-female",
+    "theme-anniversary-young", "theme-anniversary-old",
+    "theme-festival-diwali", "theme-festival-eid", "theme-festival-christmas", "theme-festival-holi"
+  );
+
+  if (celebration) {
+    document.body.classList.add(celebration.themeClass);
+    updateAirtelHero(celebration);
+  } else {
+    const savedTheme = localStorage.getItem("happyCelebrationTheme") || "wine";
+    document.body.classList.add(`theme-${savedTheme}`);
+    updateAirtelHero(null);
+  }
+
+  // Restart floating particles
+  initFloatingCelebration();
+}
+
+function updateAirtelHero(celebration) {
+  const heroCard = document.getElementById("airtelHeroCard");
+  const heroIcon = document.getElementById("airtelHeroIcon");
+  const heroTag = document.getElementById("airtelHeroTag");
+  const heroTitle = document.getElementById("airtelHeroTitle");
+  const heroDesc = document.getElementById("airtelHeroDesc");
+  const heroBtn = document.getElementById("airtelHeroBtn");
+
+  if (!heroCard) return;
+
+  if (celebration) {
+    if (heroIcon) heroIcon.textContent = celebration.icon;
+    if (heroTag) heroTag.textContent = celebration.tag;
+    if (heroTitle) heroTitle.textContent = celebration.name;
+    if (heroDesc) heroDesc.textContent = celebration.desc;
+    if (heroBtn) {
+      heroBtn.style.display = "block";
+      heroBtn.textContent = "Preview Details";
+      heroBtn.onclick = () => {
+        alert(`Active Theme: ${celebration.name}\n\n${celebration.desc}`);
+      };
+    }
+  } else {
+    if (heroIcon) heroIcon.textContent = "🎉";
+    if (heroTag) heroTag.textContent = "Theme Planner";
+    if (heroTitle) heroTitle.textContent = "Standard Theme Active";
+    if (heroDesc) heroDesc.textContent = "No active celebration theme today. Toggle the mock date picker options below to preview our custom themes!";
+    if (heroBtn) {
+      heroBtn.style.display = "none";
+    }
+  }
+}
+
+function updateAirtelThemePlanningCards() {
+  let members = [];
+  try {
+    const raw = localStorage.getItem("happyCelebrationFamily");
+    members = raw ? JSON.parse(raw) : [];
+  } catch (e) {}
+
+  const rightTag = document.getElementById("airtelMiniRightTag");
+  const rightTitle = document.getElementById("airtelMiniRightTitle");
+  const rightDesc = document.getElementById("airtelMiniRightDesc");
+  const rightBtn = document.getElementById("airtelMiniRightBtn");
+
+  if (!rightTitle) return;
+
+  if (!Array.isArray(members) || members.length === 0) {
+    if (rightTag) rightTag.textContent = "Next Event";
+    rightTitle.textContent = "No members yet";
+    if (rightDesc) rightDesc.textContent = "Go to the Family Tree tab to add family members and see their upcoming celebrations.";
+    if (rightBtn) {
+      rightBtn.textContent = "Add Member";
+      rightBtn.onclick = () => { openPanel("family"); };
+    }
+    return;
+  }
+
+  let activeDate = new Date();
+  const mockMonthSelect = document.getElementById("mockMonth");
+  const mockDaySelect = document.getElementById("mockDay");
+  if (mockMonthSelect && mockDaySelect) {
+    const mm = parseInt(mockMonthSelect.value, 10);
+    const dd = parseInt(mockDaySelect.value, 10);
+    activeDate = new Date(activeDate.getFullYear(), mm, dd);
+  }
+
+  let nextEvent = null;
+  let minDaysDiff = Infinity;
+
+  members.forEach(m => {
+    if (m.birthDate) {
+      const parts = m.birthDate.split("/");
+      if (parts.length >= 2) {
+        const bMon = parseInt(parts[0], 10) - 1;
+        const bDay = parseInt(parts[1], 10);
+        let evDate = new Date(activeDate.getFullYear(), bMon, bDay);
+        if (evDate < activeDate) {
+          evDate = new Date(activeDate.getFullYear() + 1, bMon, bDay);
+        }
+        const diffTime = evDate - activeDate;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays >= 0 && diffDays < minDaysDiff) {
+          minDaysDiff = diffDays;
+          nextEvent = {
+            type: "Birthday",
+            name: m.name,
+            daysLeft: diffDays,
+            dateStr: `${bDay} ${getMonthName(bMon)}`,
+            icon: "🎂"
+          };
+        }
+      }
+    }
+
+    if (m.anniversaryDate) {
+      const parts = m.anniversaryDate.split("/");
+      if (parts.length >= 2) {
+        const aMon = parseInt(parts[0], 10) - 1;
+        const aDay = parseInt(parts[1], 10);
+        let evDate = new Date(activeDate.getFullYear(), aMon, aDay);
+        if (evDate < activeDate) {
+          evDate = new Date(activeDate.getFullYear() + 1, aMon, aDay);
+        }
+        const diffTime = evDate - activeDate;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays >= 0 && diffDays < minDaysDiff) {
+          minDaysDiff = diffDays;
+          nextEvent = {
+            type: "Anniversary",
+            name: `${m.name}'s`,
+            daysLeft: diffDays,
+            dateStr: `${aDay} ${getMonthName(aMon)}`,
+            icon: "💍"
+          };
+        }
+      }
+    }
+  });
+
+  if (nextEvent) {
+    if (rightTag) rightTag.textContent = `${nextEvent.type} Event`;
+    if (nextEvent.daysLeft === 0) {
+      rightTitle.textContent = `Today: ${nextEvent.name} ${nextEvent.type}!`;
+      if (rightDesc) rightDesc.textContent = `Celebrate the special occasion today!`;
+    } else {
+      rightTitle.textContent = `${nextEvent.name} ${nextEvent.type}`;
+      if (rightDesc) rightDesc.textContent = `Happening on ${nextEvent.dateStr} (${nextEvent.daysLeft} days left).`;
+    }
+    if (rightBtn) {
+      rightBtn.textContent = "View Family";
+      rightBtn.onclick = () => { openPanel("family"); };
+    }
+  } else {
+    if (rightTag) rightTag.textContent = "Next Event";
+    rightTitle.textContent = "No dates saved";
+    if (rightDesc) rightDesc.textContent = "Add birth dates and anniversaries to get countdowns here.";
+    if (rightBtn) {
+      rightBtn.textContent = "View Family";
+      rightBtn.onclick = () => { openPanel("family"); };
+    }
+  }
+}
+
+function getMonthName(m) {
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return months[m] || "";
+}
+
+// Floating Celebration Emojis Spawner
 function initFloatingCelebration() {
   const container = document.getElementById("floatingCelebrationContainer");
   if (!container) return;
 
-  const floatImages = [
-    "../assets/float-balloons.webp",
-    "../assets/float-cake.jpg",
-    "../assets/float-flowers.jpeg",
-    "../assets/float-wedding.webp",
-    "../assets/float-confetti.webp",
-    "../assets/float-arch.webp"
-  ];
+  container.innerHTML = "";
+  if (window.floatingBubbleInterval) {
+    clearInterval(window.floatingBubbleInterval);
+  }
+
+  let activeDate = new Date();
+  const mockMonthSelect = document.getElementById("mockMonth");
+  const mockDaySelect = document.getElementById("mockDay");
+  if (mockMonthSelect && mockDaySelect) {
+    const mm = parseInt(mockMonthSelect.value, 10);
+    const dd = parseInt(mockDaySelect.value, 10);
+    activeDate = new Date(activeDate.getFullYear(), mm, dd);
+  }
+
+  const celebration = getCelebrationThemeForDate(activeDate);
+  let emojis = ["🎉", "✨", "🎈", "💖", "🌸", "⭐"];
+
+  if (celebration) {
+    const id = celebration.id;
+    if (id === "festival-diwali") {
+      emojis = ["🪔", "✨", "💥", "🪔", "✨"];
+    } else if (id === "festival-eid") {
+      emojis = ["🌙", "⭐", "🕌", "🌙", "⭐"];
+    } else if (id === "festival-christmas") {
+      emojis = ["❄️", "🎄", "🎅", "❄️", "⭐"];
+    } else if (id === "festival-holi") {
+      emojis = ["🎨", "💦", "🎈", "🎨", "🌈"];
+    } else if (id.startsWith("birthday")) {
+      const isMale = celebration.themeClass === "theme-birthday-male";
+      emojis = isMale ? ["🎈", "🎂", "🎉", "🎈", "⭐"] : ["🌸", "🎂", "🎉", "🌸", "🧚‍♀️"];
+    } else if (id.startsWith("anniversary")) {
+      const isYoung = celebration.themeClass === "theme-anniversary-young";
+      emojis = isYoung ? ["💖", "💍", "🌹", "💖", "✨"] : ["💍", "✨", "🎩", "💍", "💖"];
+    }
+  }
 
   function spawnBubble(initial = false) {
-    // Only spawn bubbles when home view is active
     const homeView = document.getElementById("homeView");
     if (!homeView || !homeView.classList.contains("active")) {
       return;
@@ -3474,58 +3834,53 @@ function initFloatingCelebration() {
     const bubble = document.createElement("div");
     bubble.className = "float-bubble";
     
-    // Pick a random image from the list
-    const randomImg = floatImages[Math.floor(Math.random() * floatImages.length)];
-    bubble.style.backgroundImage = `url('${randomImg}')`;
+    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+    bubble.textContent = emoji;
 
-    // Randomize size between 45px and 75px
-    const size = Math.floor(Math.random() * 30) + 45;
+    const size = Math.floor(Math.random() * 25) + 30;
     bubble.style.width = `${size}px`;
     bubble.style.height = `${size}px`;
+    bubble.style.fontSize = `${size * 0.75}px`;
+    bubble.style.display = "flex";
+    bubble.style.alignItems = "center";
+    bubble.style.justifyContent = "center";
+    bubble.style.border = "none";
+    bubble.style.background = "none";
+    bubble.style.boxShadow = "none";
+    bubble.style.textShadow = "0 2px 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(245, 199, 110, 0.3)";
 
-    // Randomize horizontal position (5% to 95%)
     bubble.style.left = `${Math.random() * 90 + 5}%`;
 
-    // Randomize vertical offset if initial, to distribute them instantly
     if (initial) {
       const bottomOffset = Math.floor(Math.random() * 80) + 10;
       bubble.style.bottom = `${bottomOffset}%`;
     }
 
-    // Randomize float up animation duration (8s to 12s)
     const floatDuration = Math.random() * 4 + 8;
-    // Randomize sway animation duration (3s to 5s)
     const swayDuration = Math.random() * 2 + 3;
     
     bubble.style.animationDuration = `${floatDuration}s, ${swayDuration}s`;
-    // Randomize sway starting delay to offset the phases
     bubble.style.animationDelay = `0s, ${Math.random() * -4}s`;
 
     container.appendChild(bubble);
 
-    // Remove from DOM when animation completes
     setTimeout(() => {
       bubble.remove();
     }, floatDuration * 1000);
   }
 
-  // Spawn initial bubbles so the screen isn't empty on load
   for (let i = 0; i < 4; i++) {
     spawnBubble(true);
   }
 
-  // Periodically spawn new bubbles
-  setInterval(() => spawnBubble(false), 2400);
+  window.floatingBubbleInterval = setInterval(() => spawnBubble(false), 2400);
 }
 
-// Run immediately if DOM is already ready, or wait for DOMContentLoaded (disabled to remove floating images)
-/*
 if (document.readyState === "interactive" || document.readyState === "complete") {
   initFloatingCelebration();
 } else {
   document.addEventListener("DOMContentLoaded", initFloatingCelebration);
 }
-*/
 
 // ==========================================================================
 // CULT.FIT STYLE DASHBOARD RUNTIME INITIALIZATION
@@ -3739,6 +4094,337 @@ function initDashboardFeatures() {
   }
 
   populateNotifications();
+
+  // Initialize Settings Drawer toggle
+  const menuToggleBtn = document.getElementById("menuToggleBtn");
+  const settingsDrawer = document.getElementById("settingsDrawer");
+  const drawerOverlay = document.getElementById("drawerOverlay");
+  const drawerCloseBtn = document.getElementById("drawerCloseBtn");
+
+  if (menuToggleBtn && settingsDrawer && drawerOverlay && drawerCloseBtn) {
+    const openDrawer = () => {
+      settingsDrawer.classList.add("open");
+      drawerOverlay.classList.add("open");
+    };
+    const closeDrawer = () => {
+      settingsDrawer.classList.remove("open");
+      drawerOverlay.classList.remove("open");
+    };
+
+    menuToggleBtn.addEventListener("click", openDrawer);
+    drawerCloseBtn.addEventListener("click", closeDrawer);
+    drawerOverlay.addEventListener("click", closeDrawer);
+  }
+
+  // Google Sheets Sync inside Settings Drawer
+  const drawerGoogleSheetUrlInput = document.getElementById("drawerGoogleSheetUrlInput");
+  const drawerSyncMsg = document.getElementById("drawerSyncStatusMessage");
+  const drawerPullBtn = document.getElementById("drawerPullFromSheetsBtn");
+  const drawerPushBtn = document.getElementById("drawerPushToSheetsBtn");
+  const drawerSaveSyncBtn = document.getElementById("drawerSaveSyncConfigBtn");
+  const drawerCopyBtn = document.getElementById("drawerCopyAppsScriptBtn");
+  const drawerClearTreeBtn = document.getElementById("drawerClearTreeBtn");
+
+  // Load URL from localstorage
+  const syncConfigRaw = localStorage.getItem("happyCelebrationSyncConfig");
+  if (syncConfigRaw && drawerGoogleSheetUrlInput) {
+    try {
+      const config = JSON.parse(syncConfigRaw);
+      drawerGoogleSheetUrlInput.value = config.googleSheetUrl || "";
+    } catch (e) {}
+  }
+
+  if (drawerSaveSyncBtn && drawerGoogleSheetUrlInput) {
+    drawerSaveSyncBtn.addEventListener("click", () => {
+      const url = drawerGoogleSheetUrlInput.value.trim();
+      localStorage.setItem("happyCelebrationSyncConfig", JSON.stringify({ googleSheetUrl: url }));
+      if (drawerSyncMsg) {
+        drawerSyncMsg.style.color = "#a3e635";
+        drawerSyncMsg.textContent = "Config saved locally.";
+        setTimeout(() => { drawerSyncMsg.textContent = ""; }, 3000);
+      }
+    });
+  }
+
+  if (drawerPullBtn && drawerGoogleSheetUrlInput) {
+    drawerPullBtn.addEventListener("click", () => {
+      const url = drawerGoogleSheetUrlInput.value.trim();
+      if (!url) {
+        if (drawerSyncMsg) {
+          drawerSyncMsg.style.color = "#f87171";
+          drawerSyncMsg.textContent = "Please enter your Google Sheets URL first.";
+        }
+        return;
+      }
+      if (drawerSyncMsg) {
+        drawerSyncMsg.style.color = "var(--gold-300)";
+        drawerSyncMsg.textContent = "Pulling data...";
+      }
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data)) {
+            localStorage.setItem("happyCelebrationFamily", JSON.stringify(data));
+            if (drawerSyncMsg) {
+              drawerSyncMsg.style.color = "#a3e635";
+              drawerSyncMsg.textContent = "Synced successfully! Tree updated.";
+              setTimeout(() => { drawerSyncMsg.textContent = ""; }, 3000);
+            }
+            if (getActivePanelTabName() === "family") {
+              openPanel("family");
+            }
+            // Update the themes cards and countdown
+            updateActiveTheme();
+            updateAirtelThemePlanningCards();
+          } else if (data.status === "error") {
+            throw new Error(data.message);
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          if (drawerSyncMsg) {
+            drawerSyncMsg.style.color = "#f87171";
+            drawerSyncMsg.textContent = "Error pulling: " + err.message;
+          }
+        });
+    });
+  }
+
+  if (drawerPushBtn && drawerGoogleSheetUrlInput) {
+    drawerPushBtn.addEventListener("click", () => {
+      const url = drawerGoogleSheetUrlInput.value.trim();
+      if (!url) {
+        if (drawerSyncMsg) {
+          drawerSyncMsg.style.color = "#f87171";
+          drawerSyncMsg.textContent = "Please enter your Google Sheets URL first.";
+        }
+        return;
+      }
+      if (drawerSyncMsg) {
+        drawerSyncMsg.style.color = "var(--gold-300)";
+        drawerSyncMsg.textContent = "Pushing data...";
+      }
+      const rawFamily = localStorage.getItem("happyCelebrationFamily");
+      const localMembers = rawFamily ? JSON.parse(rawFamily) : [];
+
+      const payload = localMembers.map(m => {
+        const spouse = localMembers.find(s => s.id === m.spouseId);
+        const parent = localMembers.find(p => p.id === m.parentId);
+        return {
+          id: m.id,
+          name: m.name,
+          gender: m.gender || "",
+          relation: m.relation || "",
+          spouseName: spouse ? spouse.name : "",
+          parentName: parent ? parent.name : "",
+          birthDate: m.birthDate || "",
+          anniversaryDate: m.anniversaryDate || "",
+          phone: m.phone || "",
+          email: m.email || "",
+          isDeceased: m.isDeceased ? "Yes" : "No",
+          deathDate: m.deathDate || ""
+        };
+      });
+
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("HTTP error " + res.status);
+        return res.json();
+      })
+      .then(data => {
+        if (data.status === "success") {
+          if (drawerSyncMsg) {
+            drawerSyncMsg.style.color = "#a3e635";
+            drawerSyncMsg.textContent = data.message || "Data pushed successfully!";
+            setTimeout(() => { drawerSyncMsg.textContent = ""; }, 3000);
+          }
+        } else {
+          throw new Error(data.message || "Sync failed.");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        if (drawerSyncMsg) {
+          drawerSyncMsg.style.color = "#f87171";
+          drawerSyncMsg.textContent = "Error pushing: " + err.message;
+        }
+      });
+    });
+  }
+
+  if (drawerCopyBtn) {
+    drawerCopyBtn.addEventListener("click", () => {
+      const scriptCode = `function doPost(e) {
+  try {
+    var postContent = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    if (Array.isArray(postContent)) {
+      sheet.clear();
+      var headers = ["Member ID", "Name", "Gender", "Relation", "Spouse Name", "Parent Name", "Birth Date", "Anniversary Date", "Phone Number", "Email ID", "Is Deceased", "Death Date"];
+      sheet.appendRow(headers);
+      
+      postContent.forEach(function(m) {
+        sheet.appendRow([
+          m.id || "",
+          m.name || "",
+          m.gender || "",
+          m.relation || "",
+          m.spouseName || "",
+          m.parentName || "",
+          m.birthDate || "",
+          m.anniversaryDate || "",
+          m.phone || "",
+          m.email || "",
+          m.isDeceased || "No",
+          m.deathDate || ""
+        ]);
+      });
+      return ContentService.createTextOutput(JSON.stringify({status: "success", message: "Successfully synced " + postContent.length + " members."}))
+        .setMimeType(ContentService.MimeType.JSON);
+    } else {
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(["Member ID", "Name", "Gender", "Relation", "Spouse Name", "Parent Name", "Birth Date", "Anniversary Date", "Phone Number", "Email ID", "Is Deceased", "Death Date"]);
+      }
+      sheet.appendRow([
+        postContent.id || "submitted_" + new Date().getTime(),
+        postContent.name || "",
+        postContent.gender || "",
+        postContent.relation || "Submitted",
+        postContent.spouseName || "",
+        postContent.parentName || "",
+        postContent.birthDate || "",
+        postContent.anniversaryDate || "",
+        postContent.phone || "",
+        postContent.email || "",
+        postContent.isDeceased || "No",
+        postContent.deathDate || ""
+      ]);
+      return ContentService.createTextOutput(JSON.stringify({status: "success", message: "Successfully added entry."}))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({status: "error", message: err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var rows = sheet.getDataRange().getValues();
+    if (rows.length <= 1) {
+      return ContentService.createTextOutput(JSON.stringify([]))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    var headers = rows[0];
+    var data = [];
+    
+    for (var i = 1; i < rows.length; i++) {
+      var row = rows[i];
+      var member = {};
+      
+      headers.forEach(function(header, index) {
+        var key = header.toLowerCase().replace(/ /g, "");
+        if (key === "memberid") key = "id";
+        if (key === "name") key = "name";
+        if (key === "gender") key = "gender";
+        if (key === "relation") key = "relation";
+        if (key === "spouseid" || key === "spouse" || key === "spousename") key = "spouseId";
+        if (key === "parentid" || key === "parent" || key === "parentname") key = "parentId";
+        if (key === "birthdate" || key === "dob") key = "birthDate";
+        if (key === "anniversarydate") key = "anniversaryDate";
+        if (key === "phonenumber" || key === "phone") key = "phone";
+        if (key === "emailid" || key === "email") key = "email";
+        if (key === "isdeceased" || key === "deceased") {
+          member["isDeceased"] = String(row[index] || "").toLowerCase() === "yes" || String(row[index] || "").toLowerCase() === "true";
+          return;
+        }
+        if (key === "deathdate") key = "deathDate";
+        
+        member[key] = String(row[index] || "");
+      });
+      
+      data.push(member);
+    }
+    
+    data.forEach(function(m) {
+      if (m.spouseId && !m.spouseId.startsWith("mem_")) {
+        var trimmedSpouse = m.spouseId.trim().toLowerCase();
+        var foundSpouse = data.find(function(s) { 
+          return s.name && s.name.trim().toLowerCase() === trimmedSpouse; 
+        });
+        m.spouseId = foundSpouse ? foundSpouse.id : "";
+      }
+      if (m.parentId && !m.parentId.startsWith("mem_")) {
+        var trimmedParent = m.parentId.trim().toLowerCase();
+        var foundParent = data.find(function(p) { 
+          return p.name && p.name.trim().toLowerCase() === trimmedParent; 
+        });
+        m.parentId = foundParent ? foundParent.id : "";
+      }
+    });
+    
+    return ContentService.createTextOutput(JSON.stringify(data))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(error) {
+    return ContentService.createTextOutput(JSON.stringify({status: "error", message: error.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+      navigator.clipboard.writeText(scriptCode)
+        .then(() => {
+          const oldText = drawerCopyBtn.textContent;
+          drawerCopyBtn.textContent = "Copied! ✓";
+          setTimeout(() => { drawerCopyBtn.textContent = oldText; }, 2000);
+        })
+        .catch(err => {
+          alert("Failed to copy code: " + err.message);
+        });
+    });
+  }
+
+  if (drawerClearTreeBtn) {
+    drawerClearTreeBtn.addEventListener("click", () => {
+      if (confirm("Are you sure you want to delete all family tree data? This cannot be undone.")) {
+        localStorage.removeItem("happyCelebrationFamily");
+        if (drawerSyncMsg) {
+          drawerSyncMsg.style.color = "#a3e635";
+          drawerSyncMsg.textContent = "Local family data deleted.";
+          setTimeout(() => { drawerSyncMsg.textContent = ""; }, 3000);
+        }
+        if (getActivePanelTabName() === "family") {
+          openPanel("family");
+        }
+        updateActiveTheme();
+        updateAirtelThemePlanningCards();
+      }
+    });
+  }
+
+  // Theme Planner Mock Date Picker Events
+  const mockMonth = document.getElementById("mockMonth");
+  const mockDay = document.getElementById("mockDay");
+
+  if (mockMonth && mockDay) {
+    mockMonth.addEventListener("change", () => {
+      updateActiveTheme();
+      updateAirtelThemePlanningCards();
+    });
+    mockDay.addEventListener("change", () => {
+      updateActiveTheme();
+      updateAirtelThemePlanningCards();
+    });
+  }
+
+  // Trigger initial cards content and active theme load
+  updateActiveTheme();
+  updateAirtelThemePlanningCards();
 }
 
 // 6. Search Dialog Modal Logic
