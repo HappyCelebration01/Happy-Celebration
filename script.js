@@ -3454,6 +3454,214 @@ document.addEventListener("DOMContentLoaded", () => {
 // DYNAMIC CELEBRATION THEMES PLANNER ENGINE
 // ==========================================================================
 
+const CELEBRATION_THEMES = {
+  "baby-boy": {
+    label: "🎂 Baby Boy Birthday",
+    styles: [
+      {
+        id: "boy-superhero",
+        name: "Superhero Theme 🦸‍♂️",
+        balloons: ["#ef4444", "#3b82f6", "#eab308"],
+        desc: "Active Theme: Superhero. Bold Red, Blue, and Yellow balloons.",
+        decor: "Superhero skyline backdrops, action bubble signs, and comic-style table spreads.",
+        lighting: "Bright cool white spotlights with vibrant red/blue uplighting.",
+        themeClass: "theme-wine"
+      },
+      {
+        id: "boy-safari",
+        name: "Safari Theme 🦁",
+        balloons: ["#22c55e", "#78350f", "#f97316"],
+        desc: "Active Theme: Safari. Natural Green, Brown, and Orange balloons.",
+        decor: "Jungle foliage vines, inflatable wild animal figures, and wooden rustic signs.",
+        lighting: "Soft warm amber wash with green accent uplights.",
+        themeClass: "theme-emerald"
+      },
+      {
+        id: "boy-cars",
+        name: "Cars & Trucks Theme 🏎️",
+        balloons: ["#09090b", "#ef4444", "#cbd5e1"],
+        desc: "Active Theme: Cars/Trucks. Sleek Black, Red, and Silver balloons.",
+        decor: "Checkered racing flags, miniature traffic cones, and racetrack floor runners.",
+        lighting: "Cool white floodlights with high-contrast red neon accents.",
+        themeClass: "theme-luxury"
+      }
+    ]
+  },
+  "baby-girl": {
+    label: "🎀 Baby Girl Birthday",
+    styles: [
+      {
+        id: "girl-princess",
+        name: "Princess Theme 👑",
+        balloons: ["#f472b6", "#eab308", "#ffffff"],
+        desc: "Active Theme: Princess. Royal Pink, Gold, and White balloons.",
+        decor: "Sparkling tiaras, satin table skirts, and a grand castle photo gate.",
+        lighting: "Soft pink wash with warm golden fairy light backdrop.",
+        themeClass: "theme-birthday-female"
+      },
+      {
+        id: "girl-fairy",
+        name: "Fairy Garden Theme 🧚‍♀️",
+        balloons: ["#fbcfe8", "#c084fc", "#86efac"],
+        desc: "Active Theme: Fairy Garden. Whimsical Pastel Pink, Lavender, and Mint Green balloons.",
+        decor: "Enchanted flower vines, glowing mushroom props, and fairy wing chair covers.",
+        lighting: "Ethereal lavender glow with twinkling firefly lights.",
+        themeClass: "theme-violet"
+      },
+      {
+        id: "girl-unicorn",
+        name: "Unicorn Theme 🦄",
+        balloons: ["#fbcfe8", "#c084fc", "#93c5fd", "#fef08a"],
+        desc: "Active Theme: Unicorn. Magical Rainbow Pastel balloons.",
+        decor: "Golden unicorn horn centerpieces, fluffy cloud setups, and pastel rainbow backdrops.",
+        lighting: "Dreamy pastel color-cycle washes with glittering star-projectors.",
+        themeClass: "theme-birthday-female"
+      }
+    ]
+  },
+  "newly-married": {
+    label: "💍 Newly Married Couple",
+    styles: [
+      {
+        id: "newly-romantic",
+        name: "Romantic Elegance 🌹",
+        balloons: ["#dc2626", "#ffffff", "#fda4af"],
+        desc: "Active Theme: Romantic Elegance. Passionate Red, White, and Rose-Gold balloons.",
+        decor: "Fresh red rose petals, glass candle holders, and love letter backdrops.",
+        lighting: "Intimate dim warm white candle-glow with soft rose uplighting.",
+        themeClass: "theme-wine"
+      },
+      {
+        id: "newly-travel",
+        name: "Travel Adventure ✈️",
+        balloons: ["#3b82f6", "#14b8a6", "#fef08a"],
+        desc: "Active Theme: Travel Adventure. Scenic Blue, Teal, and Sandy Beige balloons.",
+        decor: "Vintage suitcases, globe centerpieces, and wanderlust map backdrops.",
+        lighting: "Bright daylight white with cool teal ambient washes.",
+        themeClass: "theme-sapphire"
+      },
+      {
+        id: "newly-glam",
+        name: "Modern Glam ✨",
+        balloons: ["#cbd5e1", "#eab308", "#09090b"],
+        desc: "Active Theme: Modern Glam. Sophisticated Silver, Gold, and Black balloons.",
+        decor: "Metallic sequined walls, geometric metal frames, and champagne towers.",
+        lighting: "High-contrast white pinspots and golden sparkle projections.",
+        themeClass: "theme-luxury"
+      }
+    ]
+  },
+  "older-married": {
+    label: "💖 Older Married Couple",
+    styles: [
+      {
+        id: "older-jubilee",
+        name: "Golden Jubilee 🏆",
+        balloons: ["#eab308", "#fffbeb", "#fef9c3"],
+        desc: "Active Theme: Golden Jubilee. Majestic Gold, Ivory, and Champagne balloons.",
+        decor: "Golden frame photo gallery, velvet drapery, and vintage anniversary banners.",
+        lighting: "Warm amber candle-style chandeliers and golden uplights.",
+        themeClass: "theme-luxury"
+      },
+      {
+        id: "older-memory",
+        name: "Memory Lane 📸",
+        balloons: ["#ffffff", "#78350f", "#fef08a"],
+        desc: "Active Theme: Memory Lane. Retro White, Sepia Brown, and Soft Pastel balloons.",
+        decor: "Overhead hanging polaroid cards, retro record players, and lace table overlays.",
+        lighting: "Dim nostalgic incandescent edison bulb strings.",
+        themeClass: "theme-wine"
+      },
+      {
+        id: "older-classic",
+        name: "Classic Elegance 🖤",
+        balloons: ["#09090b", "#ffffff", "#cbd5e1"],
+        desc: "Active Theme: Classic Elegance. Formal Black, White, and Silver balloons.",
+        decor: "Monochromatic floral setups, crystal candelabras, and silver sequin runners.",
+        lighting: "Crisp cool white wash with subtle silver shimmers.",
+        themeClass: "theme-luxury"
+      }
+    ]
+  },
+  "festival": {
+    label: "🎉 Festival Themes",
+    styles: [
+      {
+        id: "festival-diwali-style",
+        name: "Diwali Theme 🪔",
+        balloons: ["#f97316", "#eab308", "#ef4444"],
+        desc: "Active Theme: Diwali. Festival of Lights featuring Orange, Yellow, and Red balloons.",
+        decor: "Clay diyas, fresh marigold flower garlands, and colorful sand rangolis.",
+        lighting: "Twinkling warm fairy lights, lanterns, and bright oil lamp clusters.",
+        themeClass: "theme-festival-diwali"
+      },
+      {
+        id: "festival-christmas-style",
+        name: "Christmas Theme 🎄",
+        balloons: ["#ef4444", "#22c55e", "#ffffff"],
+        desc: "Active Theme: Christmas. Holiday cheer with Red, Green, and White balloons.",
+        decor: "Pine wreaths, holly leaves, hanging socks, and mistletoe.",
+        lighting: "Red and green accent spots with warm white fairy lights on tree branch clusters.",
+        themeClass: "theme-festival-christmas"
+      },
+      {
+        id: "festival-holi-style",
+        name: "Holi Theme 🎨",
+        balloons: ["#ec4899", "#3b82f6", "#eab308", "#22c55e"],
+        desc: "Active Theme: Holi. Organic Holi Splash featuring vibrant Multicolor balloons.",
+        decor: "Organic herbal colors (gulal), water guns (pichkaris), and rustic organic drapes.",
+        lighting: "Bright daylight white floodlights and multi-color laser projections.",
+        themeClass: "theme-festival-holi"
+      },
+      {
+        id: "festival-eid-style",
+        name: "Eid Theme 🌙",
+        balloons: ["#22c55e", "#eab308", "#cbd5e1"],
+        desc: "Active Theme: Eid. Blessed Eid vibes with Green, Gold, and Silver balloons.",
+        decor: "Crescent moon backdrops, moroccan lantern centerpieces, and calligraphy hangings.",
+        lighting: "Emerald green uplighting with warm gold lantern glows.",
+        themeClass: "theme-festival-eid"
+      }
+    ]
+  }
+};
+
+function mapAutoCelebrationToStyle(celebration) {
+  let mapped = celebration;
+  if (celebration.id === "festival-diwali") {
+    const s = CELEBRATION_THEMES["festival"].styles[0];
+    mapped = { ...celebration, balloons: s.balloons, decor: s.decor, lighting: s.lighting, desc: s.desc };
+  } else if (celebration.id === "festival-christmas") {
+    const s = CELEBRATION_THEMES["festival"].styles[1];
+    mapped = { ...celebration, balloons: s.balloons, decor: s.decor, lighting: s.lighting, desc: s.desc };
+  } else if (celebration.id === "festival-holi") {
+    const s = CELEBRATION_THEMES["festival"].styles[2];
+    mapped = { ...celebration, balloons: s.balloons, decor: s.decor, lighting: s.lighting, desc: s.desc };
+  } else if (celebration.id === "festival-eid") {
+    const s = CELEBRATION_THEMES["festival"].styles[3];
+    mapped = { ...celebration, balloons: s.balloons, decor: s.decor, lighting: s.lighting, desc: s.desc };
+  } else if (celebration.id.startsWith("birthday")) {
+    const isMale = celebration.themeClass === "theme-birthday-male";
+    if (isMale) {
+      const s = CELEBRATION_THEMES["baby-boy"].styles[0];
+      mapped = { ...celebration, balloons: s.balloons, decor: s.decor, lighting: s.lighting, desc: s.desc };
+    } else {
+      const s = CELEBRATION_THEMES["baby-girl"].styles[0];
+      mapped = { ...celebration, balloons: s.balloons, decor: s.decor, lighting: s.lighting, desc: s.desc };
+    }
+  } else if (celebration.id.startsWith("anniversary")) {
+    const isOld = celebration.themeClass === "theme-anniversary-old";
+    if (isOld) {
+      const s = CELEBRATION_THEMES["older-married"].styles[0];
+      mapped = { ...celebration, balloons: s.balloons, decor: s.decor, lighting: s.lighting, desc: s.desc };
+    } else {
+      const s = CELEBRATION_THEMES["newly-married"].styles[0];
+      mapped = { ...celebration, balloons: s.balloons, decor: s.decor, lighting: s.lighting, desc: s.desc };
+    }
+  }
+  return mapped;
+}
+
 function getCelebrationThemeForDate(date) {
   const m = date.getMonth(); // 0-11
   const d = date.getDate();
@@ -3603,6 +3811,10 @@ function getCelebrationThemeForDate(date) {
 }
 
 function updateActiveTheme() {
+  const categorySelect = document.getElementById("themeCategorySelect");
+  const styleSelect = document.getElementById("themeStyleSelect");
+
+  let celebration = null;
   let activeDate = new Date();
   const mockMonthSelect = document.getElementById("mockMonth");
   const mockDaySelect = document.getElementById("mockDay");
@@ -3612,7 +3824,47 @@ function updateActiveTheme() {
     activeDate = new Date(activeDate.getFullYear(), mm, dd);
   }
 
-  const celebration = getCelebrationThemeForDate(activeDate);
+  // 1. Check if user selected a manual category override
+  if (categorySelect && categorySelect.value !== "auto") {
+    const catKey = categorySelect.value;
+    const styleKey = styleSelect ? styleSelect.value : "";
+    const catObj = CELEBRATION_THEMES[catKey];
+    if (catObj) {
+      // Find the selected theme style
+      const themeStyle = catObj.styles.find(s => s.id === styleKey) || catObj.styles[0];
+      if (themeStyle) {
+        let themeIcon = "🎉";
+        if (catKey === "baby-boy") themeIcon = "🎂";
+        else if (catKey === "baby-girl") themeIcon = "🎀";
+        else if (catKey === "newly-married") themeIcon = "💍";
+        else if (catKey === "older-married") themeIcon = "💖";
+        else if (catKey === "festival") {
+          if (themeStyle.id.includes("diwali")) themeIcon = "🪔";
+          else if (themeStyle.id.includes("christmas")) themeIcon = "🎄";
+          else if (themeStyle.id.includes("holi")) themeIcon = "🎨";
+          else if (themeStyle.id.includes("eid")) themeIcon = "🌙";
+        }
+        celebration = {
+          id: themeStyle.id,
+          name: themeStyle.name,
+          themeClass: themeStyle.themeClass,
+          icon: themeIcon,
+          desc: themeStyle.desc,
+          decor: themeStyle.decor,
+          lighting: themeStyle.lighting,
+          balloons: themeStyle.balloons,
+          tag: catObj.label.toUpperCase()
+        };
+      }
+    }
+  } else {
+    // 2. Default automatic date detection
+    celebration = getCelebrationThemeForDate(activeDate);
+    // If auto detected a theme, let's map it to one of our special theme styles!
+    if (celebration) {
+      celebration = mapAutoCelebrationToStyle(celebration);
+    }
+  }
 
   // Clear all themes
   document.body.classList.remove(
@@ -3646,15 +3898,37 @@ function updateAirtelHero(celebration) {
   if (!heroCard) return;
 
   if (celebration) {
-    if (heroIcon) heroIcon.textContent = celebration.icon;
-    if (heroTag) heroTag.textContent = celebration.tag;
+    if (heroIcon) heroIcon.textContent = celebration.icon || "🎉";
+    if (heroTag) heroTag.textContent = celebration.tag || "Active Theme";
     if (heroTitle) heroTitle.textContent = celebration.name;
-    if (heroDesc) heroDesc.textContent = celebration.desc;
+    
+    let displayDesc = celebration.desc;
+    if (celebration.decor) {
+      displayDesc += ` Decor: ${celebration.decor}`;
+    }
+    if (heroDesc) heroDesc.textContent = displayDesc;
+    
     if (heroBtn) {
       heroBtn.style.display = "block";
       heroBtn.textContent = "Preview Details";
       heroBtn.onclick = () => {
-        alert(`Active Theme: ${celebration.name}\n\n${celebration.desc}`);
+        let detailsMsg = `✨ ${celebration.name} ✨\n\n`;
+        if (celebration.balloons) {
+          // Extract balloon descriptions
+          let balloonsText = celebration.desc;
+          if (celebration.desc.includes("balloons")) {
+            const parts = celebration.desc.split(".");
+            balloonsText = parts[1] ? parts[1].trim() : celebration.desc;
+          }
+          detailsMsg += `🎈 Balloons:\n- ${balloonsText}\n\n`;
+        }
+        if (celebration.decor) {
+          detailsMsg += `🌸 Decoration Suggestions:\n- ${celebration.decor}\n\n`;
+        }
+        if (celebration.lighting) {
+          detailsMsg += `💡 Lighting Concept:\n- ${celebration.lighting}\n\n`;
+        }
+        alert(detailsMsg);
       };
     }
   } else {
@@ -3803,25 +4077,58 @@ function initFloatingCelebration() {
     activeDate = new Date(activeDate.getFullYear(), mm, dd);
   }
 
-  const celebration = getCelebrationThemeForDate(activeDate);
-  let emojis = ["🎉", "✨", "🎈", "💖", "🌸", "⭐"];
+  // Get current active theme
+  const categorySelect = document.getElementById("themeCategorySelect");
+  const styleSelect = document.getElementById("themeStyleSelect");
+  let celebration = null;
 
+  if (categorySelect && categorySelect.value !== "auto") {
+    const catKey = categorySelect.value;
+    const styleKey = styleSelect ? styleSelect.value : "";
+    const catObj = CELEBRATION_THEMES[catKey];
+    if (catObj) {
+      const themeStyle = catObj.styles.find(s => s.id === styleKey) || catObj.styles[0];
+      if (themeStyle) {
+        celebration = {
+          id: themeStyle.id,
+          name: themeStyle.name,
+          themeClass: themeStyle.themeClass,
+          icon: "🎈",
+          desc: themeStyle.desc,
+          balloons: themeStyle.balloons
+        };
+      }
+    }
+  } else {
+    celebration = getCelebrationThemeForDate(activeDate);
+    if (celebration) {
+      celebration = mapAutoCelebrationToStyle(celebration);
+    }
+  }
+
+  // If a celebration is active and it has custom balloons, use them!
+  const useCssBalloons = celebration && Array.isArray(celebration.balloons);
+  const balloonColors = useCssBalloons ? celebration.balloons : [];
+  
+  let emojis = ["🎉", "✨", "🎈", "💖", "🌸", "⭐"];
   if (celebration) {
     const id = celebration.id;
-    if (id === "festival-diwali") {
+    if (id.includes("diwali")) {
       emojis = ["🪔", "✨", "💥", "🪔", "✨"];
-    } else if (id === "festival-eid") {
+    } else if (id.includes("eid")) {
       emojis = ["🌙", "⭐", "🕌", "🌙", "⭐"];
-    } else if (id === "festival-christmas") {
+    } else if (id.includes("christmas")) {
       emojis = ["❄️", "🎄", "🎅", "❄️", "⭐"];
-    } else if (id === "festival-holi") {
-      emojis = ["🎨", "💦", "🎈", "🎨", "🌈"];
-    } else if (id.startsWith("birthday")) {
-      const isMale = celebration.themeClass === "theme-birthday-male";
-      emojis = isMale ? ["🎈", "🎂", "🎉", "🎈", "⭐"] : ["🌸", "🎂", "🎉", "🌸", "🧚‍♀️"];
-    } else if (id.startsWith("anniversary")) {
-      const isYoung = celebration.themeClass === "theme-anniversary-young";
-      emojis = isYoung ? ["💖", "💍", "🌹", "💖", "✨"] : ["💍", "✨", "🎩", "💍", "💖"];
+    } else if (id.includes("holi")) {
+      emojis = ["🎨", "💦", "🎨", "🌈"];
+    } else if (id.includes("boy") || id.includes("birthday-male")) {
+      emojis = ["🎈", "🎂", "🎉", "🎈", "⭐"];
+    } else if (id.includes("girl") || id.includes("birthday-female")) {
+      emojis = ["🌸", "🎂", "🎉", "🌸", "🧚‍♀️"];
+    } else if (id.includes("romantic") || id.includes("travel") || id.includes("anniversary-young")) {
+      emojis = ["💖", "💍", "🌹", "💖", "✨"];
+    } else if (id.includes("jubilee") || id.includes("memory") || id.includes("classic") || id.includes("anniversary-old")) {
+      emojis = ["💍", "✨", "🎩", "💍", "💖"];
     }
   }
 
@@ -3833,21 +4140,57 @@ function initFloatingCelebration() {
 
     const bubble = document.createElement("div");
     bubble.className = "float-bubble";
-    
-    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-    bubble.textContent = emoji;
 
-    const size = Math.floor(Math.random() * 25) + 30;
+    // 70% of the time spawn 3D balloon, 30% spawn emojis/sparkles
+    const spawnBalloon = useCssBalloons && Math.random() < 0.7;
+
+    const size = Math.floor(Math.random() * 20) + 32; // size in pixels
     bubble.style.width = `${size}px`;
-    bubble.style.height = `${size}px`;
-    bubble.style.fontSize = `${size * 0.75}px`;
     bubble.style.display = "flex";
     bubble.style.alignItems = "center";
     bubble.style.justifyContent = "center";
     bubble.style.border = "none";
-    bubble.style.background = "none";
-    bubble.style.boxShadow = "none";
-    bubble.style.textShadow = "0 2px 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(245, 199, 110, 0.3)";
+    bubble.style.pointerEvents = "none";
+
+    if (spawnBalloon) {
+      const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+      const height = Math.floor(size * 1.25);
+      bubble.style.height = `${height}px`;
+      bubble.style.borderRadius = "50% 50% 50% 50% / 40% 40% 60% 60%";
+      bubble.style.background = `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 50%), ${color}`;
+      bubble.style.boxShadow = `inset -3px -3px 8px rgba(0,0,0,0.45), 0 4px 15px ${color}77`;
+
+      // Tie knot
+      const knot = document.createElement("div");
+      knot.style.position = "absolute";
+      knot.style.bottom = "-2px";
+      knot.style.left = "50%";
+      knot.style.transform = "translateX(-50%)";
+      knot.style.width = "6px";
+      knot.style.height = "4px";
+      knot.style.background = color;
+      knot.style.borderRadius = "3px / 2px";
+      bubble.appendChild(knot);
+
+      // String
+      const string = document.createElement("div");
+      string.style.position = "absolute";
+      string.style.bottom = "-25px";
+      string.style.left = "50%";
+      string.style.width = "1px";
+      string.style.height = "25px";
+      string.style.background = "rgba(255, 255, 255, 0.35)";
+      string.style.transform = "translateX(-50%)";
+      bubble.appendChild(string);
+    } else {
+      bubble.style.height = `${size}px`;
+      bubble.style.background = "none";
+      bubble.style.boxShadow = "none";
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      bubble.textContent = emoji;
+      bubble.style.fontSize = `${size * 0.75}px`;
+      bubble.style.textShadow = "0 2px 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(245, 199, 110, 0.3)";
+    }
 
     bubble.style.left = `${Math.random() * 90 + 5}%`;
 
@@ -4550,9 +4893,40 @@ function doGet(e) {
     });
   }
 
-  // Theme Planner Mock Date Picker Events
+  // Theme Planner Mock Date Picker & Style Selector Events
   const mockMonth = document.getElementById("mockMonth");
   const mockDay = document.getElementById("mockDay");
+  const categorySelect = document.getElementById("themeCategorySelect");
+  const styleSelect = document.getElementById("themeStyleSelect");
+
+  if (categorySelect && styleSelect) {
+    const updateStyleOptions = () => {
+      const catKey = categorySelect.value;
+      if (catKey === "auto") {
+        styleSelect.style.display = "none";
+      } else {
+        styleSelect.style.display = "block";
+        const catObj = CELEBRATION_THEMES[catKey];
+        if (catObj) {
+          styleSelect.innerHTML = catObj.styles.map(s => `<option value="${s.id}">${s.name}</option>`).join("");
+        }
+      }
+    };
+
+    categorySelect.addEventListener("change", () => {
+      updateStyleOptions();
+      updateActiveTheme();
+      updateAirtelThemePlanningCards();
+    });
+
+    styleSelect.addEventListener("change", () => {
+      updateActiveTheme();
+      updateAirtelThemePlanningCards();
+    });
+
+    // Run initial population
+    updateStyleOptions();
+  }
 
   if (mockMonth && mockDay) {
     mockMonth.addEventListener("change", () => {

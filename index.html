@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=105">
+    <link rel="stylesheet" href="styles.css?v=106">
     <style>
       /* Staggered Twinkling Star Animations (Slow 8s cycle) */
       .sparkle-star {
@@ -87,6 +87,29 @@
                   <h3 class="airtel-hero-title" id="airtelHeroTitle">Default Theme</h3>
                   <p class="airtel-hero-desc" id="airtelHeroDesc">Choose a date or event to preview beautiful customized celebration themes.</p>
                   <button class="airtel-hero-btn" id="airtelHeroBtn" type="button">Preview Details</button>
+                </div>
+
+                <!-- Theme Style Selector Mini Card -->
+                <div class="airtel-mini-card" style="min-height: auto; width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.03); border: 1px solid rgba(245,199,110,0.15);">
+                  <div>
+                    <div class="airtel-mini-tag">Celebration Styles</div>
+                    <h4 class="airtel-mini-title">Select Theme Style</h4>
+                    <p class="airtel-mini-desc" style="margin-bottom: 8px;">Pick a custom occasion style package.</p>
+                    <div class="theme-selection-dropdowns" style="display: flex; flex-direction: column; gap: 8px;">
+                      <select id="themeCategorySelect" aria-label="Celebration Category" style="width: 100%; min-height: 36px; padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(245, 199, 110, 0.3); background: rgba(30, 4, 12, 0.85); color: #fff; font-size: 12px; font-family: 'Outfit', sans-serif;">
+                        <option value="auto">Auto-detect from Date</option>
+                        <option value="baby-boy">🎂 Baby Boy Birthday</option>
+                        <option value="baby-girl">🎀 Baby Girl Birthday</option>
+                        <option value="newly-married">💍 Newly Married Couple</option>
+                        <option value="older-married">💖 Older Married Couple</option>
+                        <option value="festival">🎉 Festival Themes</option>
+                      </select>
+                      
+                      <select id="themeStyleSelect" aria-label="Theme Style" style="width: 100%; min-height: 36px; padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(245, 199, 110, 0.3); background: rgba(30, 4, 12, 0.85); color: #fff; font-size: 12px; font-family: 'Outfit', sans-serif; display: none;">
+                        <!-- Options will be filled dynamically in JS -->
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Mini Card 1: Theme Planner (Mock Date Picker) -->
@@ -940,6 +963,6 @@
       </div>
     </template>
 
-    <script src="script.js?v=105"></script>
+    <script src="script.js?v=106"></script>
   </body>
 </html>
