@@ -1256,24 +1256,20 @@ const panels = {
                 modalAnniversaryLabel.style.display = "none";
               }
               
-              if (member.relation === "Grandparent" || member.relation === "Parent") {
-                modalChildrenSection.style.display = "block";
-                
-                const spouseId = member.spouseId;
-                const childRelation = member.relation === "Grandparent" ? "Parent" : "Child";
-                const children = members.filter(m => m.relation === childRelation && (m.parentId === member.id || (spouseId && m.parentId === spouseId)));
-                const loadedChildIds = new Set();
-                
-                children.forEach(child => {
-                  if (child.spouseId && loadedChildIds.has(child.spouseId)) {
-                    return; 
-                  }
-                  loadedChildIds.add(child.id);
-                  addChildRow(child.name, child.gender, child.id);
-                });
-              } else {
-                modalChildrenSection.style.display = "none";
-              }
+              // Always show children section during edit
+              modalChildrenSection.style.display = "block";
+              
+              const spouseId = member.spouseId;
+              const children = members.filter(m => (m.parentId === member.id || (spouseId && m.parentId === spouseId)));
+              const loadedChildIds = new Set();
+              
+              children.forEach(child => {
+                if (child.spouseId && loadedChildIds.has(child.spouseId)) {
+                  return; 
+                }
+                loadedChildIds.add(child.id);
+                addChildRow(child.name, child.gender, child.id);
+              });
               
               modalDeleteBtn.style.display = "block";
             }
@@ -1838,59 +1834,57 @@ const panels = {
               }
 
               // Process children
-              if (member.relation === "Self" || member.relation === "Child") {
-                const childCards = modalChildrenList.querySelectorAll(".modal-child-row");
-                const processedChildIds = new Set();
-                const childRelation = member.relation === "Self" ? "Child" : "Child";
+              const childCards = modalChildrenList.querySelectorAll(".modal-child-row");
+              const processedChildIds = new Set();
+              const childRelation = (member.relation === "Grandparent" || member.relation === "Grandfather" || member.relation === "Grandmother") ? "Parent" : "Child";
+              
+              childCards.forEach(card => {
+                const childRowId = card.dataset.rowId;
+                const childNameInput = card.querySelector(".child-name-input");
+                const childName = childNameInput ? childNameInput.value.trim() : "";
+                const childGender = card.querySelector(".child-gender-input").value;
                 
-                childCards.forEach(card => {
-                  const childRowId = card.dataset.rowId;
-                  const childNameInput = card.querySelector(".child-name-input");
-                  const childName = childNameInput ? childNameInput.value.trim() : "";
-                  const childGender = card.querySelector(".child-gender-input").value;
+                if (childName) {
+                  let childId = childRowId;
+                  let isNewChild = childRowId.startsWith("row_");
                   
-                  if (childName) {
-                    let childId = childRowId;
-                    let isNewChild = childRowId.startsWith("row_");
-                    
-                    if (isNewChild) {
-                      childId = "mem_" + Math.random().toString(36).substr(2, 9);
-                    }
-                    
-                    let childMember = members.find(m => m.id === childId);
-                    if (childMember) {
-                      childMember.name = childName;
-                      childMember.gender = childGender;
-                    } else {
-                      childMember = {
-                        id: childId,
-                        name: childName,
-                        gender: childGender,
-                        relation: action === "add-son" ? "Son" : "Daughter",
-                        spouseId: "",
-                        parentId: member.id,
-                        birthDate: "",
-                        anniversaryDate: "",
-                        phone: "",
-                        email: "",
-                        isDeceased: false,
-                        deathDate: ""
-                      };
-                      members.push(childMember);
-                    }
-                    processedChildIds.add(childId);
+                  if (isNewChild) {
+                    childId = "mem_" + Math.random().toString(36).substr(2, 9);
                   }
-                });
+                  
+                  let childMember = members.find(m => m.id === childId);
+                  if (childMember) {
+                    childMember.name = childName;
+                    childMember.gender = childGender;
+                  } else {
+                    childMember = {
+                      id: childId,
+                      name: childName,
+                      gender: childGender,
+                      relation: childRelation,
+                      spouseId: "",
+                      parentId: member.id,
+                      birthDate: "",
+                      anniversaryDate: "",
+                      phone: "",
+                      email: "",
+                      isDeceased: false,
+                      deathDate: ""
+                    };
+                    members.push(childMember);
+                  }
+                  processedChildIds.add(childId);
+                }
+              });
 
-                // Remove deleted children
-                const spouseId = member.spouseId;
-                const currentChildren = members.filter(m => m.relation === childRelation && (m.parentId === member.id || (spouseId && m.parentId === spouseId)));
-                currentChildren.forEach(child => {
-                  if (!processedChildIds.has(child.id)) {
-                    deleteMemberTree(child.id);
-                  }
-                });
-              }
+              // Remove deleted children
+              const spouseId = member.spouseId;
+              const currentChildren = members.filter(m => (m.parentId === member.id || (spouseId && m.parentId === spouseId)));
+              currentChildren.forEach(child => {
+                if (!processedChildIds.has(child.id)) {
+                  deleteMemberTree(child.id);
+                }
+              });
             }
           } else if (action === "add-father") {
             const target = members.find(m => m.id === targetId);
