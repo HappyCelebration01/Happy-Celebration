@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=106">
+    <link rel="stylesheet" href="styles.css?v=107">
     <style>
       /* Staggered Twinkling Star Animations (Slow 8s cycle) */
       .sparkle-star {
@@ -92,13 +92,16 @@
                 <!-- Theme Style Selector Mini Card -->
                 <div class="airtel-mini-card" style="min-height: auto; width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.03); border: 1px solid rgba(245,199,110,0.15);">
                   <div>
-                    <div class="airtel-mini-tag">Celebration Style</div>
-                    <h4 class="airtel-mini-title" id="activeThemeStyleName">Auto-detect from Date</h4>
-                    <p class="airtel-mini-desc" id="activeThemeStyleCategory" style="margin-bottom: 12px; font-size: 11px; color: var(--gold-300);">Using calendar dates to set theme.</p>
+                    <div class="airtel-mini-tag">Celebration Themes Menu</div>
+                    <h4 class="airtel-mini-title" style="margin-bottom: 4px;">Occasions List</h4>
+                    <p class="airtel-mini-desc" style="margin-bottom: 12px;">Click any theme style below to preview its custom balloons immediately.</p>
                     
-                    <div style="display: flex; gap: 8px; width: 100%;">
-                      <button class="secondary-action" id="prevThemeBtn" type="button" style="flex: 1; min-height: 36px; font-size: 11.5px; padding: 4px 8px; margin: 0; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(245,199,110,0.3); color: #fff;">&lsaquo; Prev Style</button>
-                      <button class="primary-action" id="nextThemeBtn" type="button" style="flex: 1; min-height: 36px; font-size: 11.5px; padding: 4px 8px; margin: 0;">Next Style &rsaquo;</button>
+                    <button class="secondary-action" id="resetAutoThemeBtn" type="button" style="width: 100%; min-height: 36px; font-size: 11px; padding: 4px 8px; margin: 0 0 16px 0; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(245,199,110,0.3); color: #fff; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                      <span>🔄</span> Reset to Auto-detect Date
+                    </button>
+                    
+                    <div id="staticThemesList" style="display: flex; flex-direction: column; gap: 12px; max-height: 450px; overflow-y: auto; padding-right: 4px;">
+                      <!-- Grouped list of all 16 theme styles will be dynamically generated in script.js -->
                     </div>
                   </div>
                 </div>
@@ -954,6 +957,6 @@
       </div>
     </template>
 
-    <script src="script.js?v=106"></script>
+    <script src="script.js?v=107"></script>
   </body>
 </html>

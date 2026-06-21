@@ -3878,6 +3878,110 @@ function updateActiveTheme() {
 
   // Restart floating particles
   initFloatingCelebration();
+  
+  // Highlight active theme item in static list
+  updateStaticThemesHighlight();
+}
+
+function renderStaticThemesList() {
+  const container = document.getElementById("staticThemesList");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const categories = [
+    { name: "Baby Boy Birthday", icon: "🎂" },
+    { name: "Baby Girl Birthday", icon: "🎀" },
+    { name: "Newly Married Couple", icon: "💍" },
+    { name: "Older Married Couple", icon: "💖" },
+    { name: "Festival Themes", icon: "🎉" }
+  ];
+
+  categories.forEach(cat => {
+    // Create header element
+    const header = document.createElement("div");
+    header.className = "static-category-title";
+    header.innerHTML = `<span style="margin-right: 6px;">${cat.icon}</span>${cat.name}`;
+    container.appendChild(header);
+
+    // Filter themes for this category
+    ALL_THEME_STYLES.forEach((theme, index) => {
+      if (theme.category === cat.name) {
+        const item = document.createElement("div");
+        item.className = "static-theme-item";
+        item.dataset.themeIndex = index;
+
+        // Map colors for small circle previews
+        const dotsHtml = theme.balloons.map(color => 
+          `<span class="theme-color-dot" style="background-color: ${color};"></span>`
+        ).join("");
+
+        // Set balloon text precisely according to prompt
+        let balloonText = "";
+        if (theme.id === "boy-superhero") balloonText = "Red, blue, yellow balloons.";
+        else if (theme.id === "boy-safari") balloonText = "Green, brown, orange balloons.";
+        else if (theme.id === "boy-cars") balloonText = "Black, red, silver balloons.";
+        else if (theme.id === "girl-princess") balloonText = "Pink, gold, white balloons.";
+        else if (theme.id === "girl-fairy") balloonText = "Pastel pink, lavender, mint green balloons.";
+        else if (theme.id === "girl-unicorn") balloonText = "Rainbow mix with pastel shades.";
+        else if (theme.id === "newly-romantic") balloonText = "Red, white, rose-gold balloons.";
+        else if (theme.id === "newly-travel") balloonText = "Blue, teal, sandy beige balloons.";
+        else if (theme.id === "newly-glam") balloonText = "Silver, gold, black balloons.";
+        else if (theme.id === "older-jubilee") balloonText = "Gold, ivory, champagne balloons.";
+        else if (theme.id === "older-memory") balloonText = "White, sepia-toned brown, soft pastel balloons.";
+        else if (theme.id === "older-classic") balloonText = "Black, white, silver balloons.";
+        else if (theme.id === "festival-diwali-style") balloonText = "Orange, yellow, red balloons.";
+        else if (theme.id === "festival-christmas-style") balloonText = "Red, green, white balloons.";
+        else if (theme.id === "festival-holi-style") balloonText = "Multicolor balloons (bright mix).";
+        else if (theme.id === "festival-eid-style") balloonText = "Green, gold, silver balloons.";
+
+        item.innerHTML = `
+          <div class="static-theme-left">
+            <div class="theme-color-dots">${dotsHtml}</div>
+          </div>
+          <div class="static-theme-content">
+            <div class="static-theme-name">${theme.name}</div>
+            <div class="static-theme-balloons">${balloonText}</div>
+          </div>
+          <div class="static-theme-status">
+            <span class="active-indicator">✓</span>
+          </div>
+        `;
+
+        item.addEventListener("click", () => {
+          window.currentThemeStyleIndex = index;
+          updateActiveTheme();
+          updateAirtelThemePlanningCards();
+        });
+
+        container.appendChild(item);
+      }
+    });
+  });
+}
+
+function updateStaticThemesHighlight() {
+  const items = document.querySelectorAll("#staticThemesList .static-theme-item");
+  items.forEach(item => {
+    const idx = parseInt(item.dataset.themeIndex, 10);
+    if (idx === window.currentThemeStyleIndex) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });
+
+  // Also update reset auto theme button state style
+  const resetBtn = document.getElementById("resetAutoThemeBtn");
+  if (resetBtn) {
+    if (window.currentThemeStyleIndex === -1) {
+      resetBtn.style.borderColor = "var(--gold-300)";
+      resetBtn.style.background = "rgba(245, 199, 110, 0.15)";
+    } else {
+      resetBtn.style.borderColor = "rgba(255, 255, 255, 0.15)";
+      resetBtn.style.background = "rgba(255, 255, 255, 0.05)";
+    }
+  }
 }
 
 function updateAirtelHero(celebration) {
@@ -4889,24 +4993,11 @@ function doGet(e) {
   // Theme Planner Mock Date Picker & Style Selector Events
   const mockMonth = document.getElementById("mockMonth");
   const mockDay = document.getElementById("mockDay");
-  const prevThemeBtn = document.getElementById("prevThemeBtn");
-  const nextThemeBtn = document.getElementById("nextThemeBtn");
+  const resetAutoThemeBtn = document.getElementById("resetAutoThemeBtn");
 
-  if (prevThemeBtn && nextThemeBtn) {
-    prevThemeBtn.addEventListener("click", () => {
-      window.currentThemeStyleIndex--;
-      if (window.currentThemeStyleIndex < -1) {
-        window.currentThemeStyleIndex = ALL_THEME_STYLES.length - 1;
-      }
-      updateActiveTheme();
-      updateAirtelThemePlanningCards();
-    });
-
-    nextThemeBtn.addEventListener("click", () => {
-      window.currentThemeStyleIndex++;
-      if (window.currentThemeStyleIndex >= ALL_THEME_STYLES.length) {
-        window.currentThemeStyleIndex = -1;
-      }
+  if (resetAutoThemeBtn) {
+    resetAutoThemeBtn.addEventListener("click", () => {
+      window.currentThemeStyleIndex = -1;
       updateActiveTheme();
       updateAirtelThemePlanningCards();
     });
@@ -4922,6 +5013,9 @@ function doGet(e) {
       updateAirtelThemePlanningCards();
     });
   }
+
+  // Render static themes list of all 16 items
+  renderStaticThemesList();
 
   // Trigger initial cards content and active theme load
   updateActiveTheme();

@@ -5222,11 +5222,156 @@ body.theme-festival-holi {
   outline: none;
 }
 
+/* Custom celebration static themes list styling */
+.static-category-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gold-300);
+  letter-spacing: 1.5px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(245, 199, 110, 0.15);
+  padding-bottom: 4px;
+}
 
+.static-category-title:first-of-type {
+  margin-top: 4px;
+}
 
+.static-theme-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
 
+.static-theme-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
 
+.static-theme-item:hover::before {
+  opacity: 1;
+}
 
+.static-theme-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(245, 199, 110, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
 
+.static-theme-item.active {
+  background: rgba(245, 199, 110, 0.08);
+  border-color: var(--gold-300);
+  box-shadow: 0 4px 12px rgba(245, 199, 110, 0.1);
+}
 
+.static-theme-left {
+  display: flex;
+  align-items: center;
+}
 
+.theme-color-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.theme-color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+}
+
+.static-theme-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.static-theme-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.static-theme-balloons {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.static-theme-item.active .static-theme-name {
+  color: var(--gold-300);
+}
+
+.static-theme-item.active .static-theme-balloons {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.static-theme-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.static-theme-status .active-indicator {
+  font-size: 10px;
+  color: var(--gold-300);
+  background: rgba(245, 199, 110, 0.2);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: all 0.2s ease;
+}
+
+.static-theme-item.active .static-theme-status .active-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Scrollbar styles for the static themes list */
+#staticThemesList::-webkit-scrollbar {
+  width: 4px;
+}
+
+#staticThemesList::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+#staticThemesList::-webkit-scrollbar-thumb {
+  background: rgba(245, 199, 110, 0.3);
+  border-radius: 10px;
+}
+
+#staticThemesList::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 199, 110, 0.5);
+}
