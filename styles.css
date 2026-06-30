@@ -5374,6 +5374,60 @@ body.theme-festival-holi {
 
 #staticThemesList::-webkit-scrollbar-thumb:hover {
   background: rgba(245, 199, 110, 0.5);
+}/* base features / services section styles */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1.5px solid rgba(245, 199, 110, 0.12);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(245, 199, 110, 0.3);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.service-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.service-card-title {
+  color: var(--gold-300);
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.service-card-desc {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.service-card .primary-action, .service-card .service-link-btn {
+  margin-top: auto;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
 }
 
 /* Mobile-first hidden states */
@@ -5543,6 +5597,12 @@ body.theme-festival-holi {
     max-width: 920px;
     margin: 40px auto;
     padding: 24px 30px !important;
+  }
+
+  /* Widescreen Columns override for services-grid */
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
   }
 
   .stat-item {

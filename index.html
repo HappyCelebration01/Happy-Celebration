@@ -204,15 +204,12 @@
             </div>
             
             <nav class="desktop-nav" aria-label="Desktop navigation">
-              <button class="nav-link-btn active" data-nav-panel="home" type="button">🏠 Home</button>
-              <a class="nav-link-btn" href="?panel=family&fullscreen=true" target="_blank" data-nav-panel="family" style="text-decoration: none;">🌳 Family Tree</a>
-              <button class="nav-link-btn" data-nav-panel="book" type="button">📅 Book Event</button>
-              <button class="nav-link-btn" data-nav-panel="packages" type="button">📦 Packages</button>
-              <button class="nav-link-btn" data-nav-panel="upcoming" type="button">⚡ Upcoming</button>
-              <button class="nav-link-btn" data-nav-panel="gallery" type="button">🖼️ Gallery</button>
-              <button class="nav-link-btn" data-nav-panel="about" type="button">ℹ️ About Us</button>
-              <button class="nav-link-btn" data-nav-panel="contact" type="button">📞 Contact Us</button>
-              <button class="nav-link-btn" data-nav-panel="register" type="button">🔑 Register</button>
+              <button class="nav-link-btn active" data-nav-panel="home" type="button">Home</button>
+              <button class="nav-link-btn" data-nav-panel="services" type="button">Services</button>
+              <button class="nav-link-btn" data-nav-panel="packages" type="button">Packages</button>
+              <button class="nav-link-btn" data-nav-panel="gallery" type="button">Gallery</button>
+              <button class="nav-link-btn" data-nav-panel="about" type="button">About Us</button>
+              <button class="nav-link-btn" data-nav-panel="contact" type="button">Contact Us</button>
             </nav>
             
             <div class="header-right-actions">
@@ -354,6 +351,47 @@
               <div class="stat-item">
                 <span class="stat-number">16+</span>
                 <span class="stat-label">Custom Themes</span>
+              </div>
+            </section>
+
+            <!-- Services / Features Section -->
+            <section class="home-section" id="servicesSection">
+              <h2 class="section-title">✦ Platform Features & Tools ✦</h2>
+              <p style="color: rgba(255, 255, 255, 0.6); font-size: 14px; text-align: center; max-width: 600px; margin: -10px auto 10px; line-height: 1.5; font-family: 'Outfit', sans-serif;">
+                Explore our smart tools designed to keep your family connected and make milestone planning effortless.
+              </p>
+              <div class="services-grid">
+                <!-- Card 1: Family Tree -->
+                <div class="service-card">
+                  <div class="service-icon">🌳</div>
+                  <h3 class="service-card-title">Interactive Family Tree</h3>
+                  <p class="service-card-desc">Map your ancestry, search family members, and keep profile details updated. Links directly to your milestone timeline.</p>
+                  <a class="primary-action service-link-btn" href="?panel=family&fullscreen=true" target="_blank" style="text-decoration: none;">Open Family Tree &rarr;</a>
+                </div>
+
+                <!-- Card 2: Book Event -->
+                <div class="service-card">
+                  <div class="service-icon">📅</div>
+                  <h3 class="service-card-title">Mock Event Planner</h3>
+                  <p class="service-card-desc">Plan birthdays, anniversaries, and weddings. Customize guest counts, select catering tiers, and calculate instant quote estimates.</p>
+                  <button class="primary-action" data-panel-trigger="book" type="button">Calculate Quote &rarr;</button>
+                </div>
+
+                <!-- Card 3: Upcoming reminders -->
+                <div class="service-card">
+                  <div class="service-icon">⚡</div>
+                  <h3 class="service-card-title">Upcoming Celebrations</h3>
+                  <p class="service-card-desc">Never miss a milestone. Track upcoming birthdays and anniversaries with dynamic countdown clocks and daily reminders.</p>
+                  <button class="primary-action" data-panel-trigger="upcoming" type="button">View Countdown Calendar &rarr;</button>
+                </div>
+
+                <!-- Card 4: Register -->
+                <div class="service-card">
+                  <div class="service-icon">🔑</div>
+                  <h3 class="service-card-title">Member Registration</h3>
+                  <p class="service-card-desc">Register family accounts, log in securely, and synchronize sheets with your profile to persist member nodes.</p>
+                  <button class="primary-action" data-panel-trigger="register" type="button">Sign In / Sign Up &rarr;</button>
+                </div>
               </div>
             </section>
 

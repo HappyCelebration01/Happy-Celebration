@@ -4401,7 +4401,7 @@ function initDashboardFeatures() {
         closePanel();
         const home = document.getElementById("homeView");
         if (home) home.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (panel === "packages" || panel === "gallery" || panel === "about" || panel === "contact") {
+      } else if (panel === "services" || panel === "packages" || panel === "gallery" || panel === "about" || panel === "contact") {
         closePanel();
         const targetId = panel + "Section";
         const section = document.getElementById(targetId);
@@ -4472,6 +4472,15 @@ function initDashboardFeatures() {
           }
         }
       }, 100);
+    });
+  });
+
+  // 2f. Setup Services Cards click listeners (data-panel-trigger)
+  const serviceTriggerBtns = document.querySelectorAll("[data-panel-trigger]");
+  serviceTriggerBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const panelName = btn.dataset.panelTrigger;
+      if (panelName) openPanel(panelName);
     });
   });
 
