@@ -5129,6 +5129,35 @@ function doGet(e) {
   // Trigger initial cards content and active theme load
   updateActiveTheme();
   updateAirtelThemePlanningCards();
+
+  // Lightbox Video Modal Logic
+  const heroPlayVideoBtn = document.getElementById("heroPlayVideoBtn");
+  const videoLightbox = document.getElementById("videoLightbox");
+  const lightboxOverlay = document.getElementById("lightboxOverlay");
+  const lightboxCloseBtn = document.getElementById("lightboxCloseBtn");
+  const lightboxIframe = document.getElementById("lightboxIframe");
+
+  if (heroPlayVideoBtn && videoLightbox && lightboxIframe) {
+    heroPlayVideoBtn.addEventListener("click", () => {
+      lightboxIframe.src = "https://player.vimeo.com/video/336812686?autoplay=1";
+      videoLightbox.style.display = "flex";
+    });
+
+    const closeLightbox = () => {
+      videoLightbox.style.display = "none";
+      lightboxIframe.src = "";
+    };
+
+    if (lightboxCloseBtn) lightboxCloseBtn.addEventListener("click", closeLightbox);
+    if (lightboxOverlay) lightboxOverlay.addEventListener("click", closeLightbox);
+    
+    // Close lightbox on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && videoLightbox.style.display === "flex") {
+        closeLightbox();
+      }
+    });
+  }
 }
 
 // 6. Search Dialog Modal Logic
