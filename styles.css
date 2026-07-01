@@ -6332,3 +6332,128 @@ body.theme-luxury .dashboard-header { background: rgba(5, 5, 7, 0.4) !important;
     transform: translateX(calc(-260px * 7)); /* Scroll exactly half the track length */
   }
 }
+
+/* ==========================================================================
+   CELEBRATION.COM HERO VIDEO BG, TRUST LOGOS, & OCCASIONS GRID
+   ========================================================================== */
+
+/* Background video container */
+.hero-video-bg-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-video-bg-container .hero-loop-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, var(--screen-bg) 92%);
+}
+
+/* Trust Brand Banner */
+.trust-brand-banner {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+}
+
+.trust-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: var(--font-display), 'Outfit', sans-serif;
+}
+
+.trust-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.trust-logo {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-display), 'Outfit', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.trust-logo:hover {
+  color: var(--gold-300);
+}
+
+/* Occasions Section Grid */
+.occasions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.occasion-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s var(--ease-custom);
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.occasion-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(245, 199, 110, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), var(--accent-glow);
+}
+
+.occasion-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.occasion-name {
+  font-family: var(--font-display), 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold-300);
+  margin: 0 0 6px 0;
+}
+
+.occasion-desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+  margin: 0;
+}

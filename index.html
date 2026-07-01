@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=116">
+    <link rel="stylesheet" href="styles.css?v=117">
     <style>
       /* Staggered Twinkling Star Animations (Slow 8s cycle) */
       .sparkle-star {
@@ -267,6 +267,16 @@
           <section class="home-view active" id="homeView" aria-label="Main menu">
             <!-- Hero Wrapper Section -->
             <div class="hero-section" id="heroSection">
+              <!-- Full Screen Looping Celebration Video Background (Celebration.com Style) -->
+              <div class="hero-video-bg-container" aria-hidden="true">
+                <div class="hero-video-overlay"></div>
+                <video class="hero-loop-video" autoplay loop muted playsinline poster="assets/event-lights.webp">
+                  <source src="https://content-uploads.cdn.prod.mindgruve.celebrationwishes.com/homepage_hero_720p_37e60f8edf.mp4" type="video/mp4">
+                  <!-- Fallback image -->
+                  <img src="assets/event-lights.webp" alt="Celebration event lights">
+                </video>
+              </div>
+
               <!-- Center Text Content aligned over a beautiful glowing background -->
               <div class="logo-hero-container">
                 <img class="main-monogram-logo" src="assets/hc-logo-mark.png" alt="Happy Celebration">
@@ -313,6 +323,18 @@
                     <div class="slide"><img src="assets/float-flowers.jpeg" alt="Floral Celebration Design"></div>
                     <div class="slide"><img src="assets/event-lights.webp" alt="Elegant Outdoor Lights"></div>
                     <div class="slide"><img src="assets/celebration-bg.webp" alt="Celebration Confetti"></div>
+                  </div>
+                </div>
+
+                <!-- Trust Brand Banner -->
+                <div class="trust-brand-banner">
+                  <span class="trust-title">FEATURED IN</span>
+                  <div class="trust-logos">
+                    <span class="trust-logo">VOGUE EVENTS</span>
+                    <span class="trust-logo">THE KNOT</span>
+                    <span class="trust-logo">MARTHA STEWART</span>
+                    <span class="trust-logo">TODAY SHOW</span>
+                    <span class="trust-logo">WSJ</span>
                   </div>
                 </div>
               </div>
@@ -388,6 +410,46 @@
               <div class="stat-item">
                 <span class="stat-number">16+</span>
                 <span class="stat-label">Custom Themes</span>
+              </div>
+            </section>
+
+            <!-- Occasions Section -->
+            <section class="home-section" id="occasionsSection">
+              <h2 class="section-title">✦ Celebration Occasions ✦</h2>
+              <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.6); font-size: 14px; text-align: center; max-width: 600px; margin: -10px auto 30px; line-height: 1.5; font-family: 'Outfit', sans-serif;">
+                We plan and design custom themes for all of life's special milestones.
+              </p>
+              <div class="occasions-grid">
+                <div class="occasion-card" data-panel-trigger="book">
+                  <div class="occasion-icon">🎂</div>
+                  <h4 class="occasion-name">Birthdays</h4>
+                  <p class="occasion-desc">Custom balloons, custom cakes, and fun themes for all ages.</p>
+                </div>
+                <div class="occasion-card" data-panel-trigger="book">
+                  <div class="occasion-icon">💍</div>
+                  <h4 class="occasion-name">Weddings</h4>
+                  <p class="occasion-desc">Grand backdrop arches, luxury stages, and elegant styling.</p>
+                </div>
+                <div class="occasion-card" data-panel-trigger="book">
+                  <div class="occasion-icon">❤️</div>
+                  <h4 class="occasion-name">Anniversaries</h4>
+                  <p class="occasion-desc">Romantic lighting, flower decors, and dinner table spreads.</p>
+                </div>
+                <div class="occasion-card" data-panel-trigger="book">
+                  <div class="occasion-icon">🍼</div>
+                  <h4 class="occasion-name">Baby Showers</h4>
+                  <p class="occasion-desc">Pastel themes, cute props, and soft balloon arch colors.</p>
+                </div>
+                <div class="occasion-card" data-panel-trigger="book">
+                  <div class="occasion-icon">🎓</div>
+                  <h4 class="occasion-name">Graduations</h4>
+                  <p class="occasion-desc">Congratulations backdrops, photo frames, and DJ setups.</p>
+                </div>
+                <div class="occasion-card" data-panel-trigger="book">
+                  <div class="occasion-icon">💼</div>
+                  <h4 class="occasion-name">Corporate Events</h4>
+                  <p class="occasion-desc">Clean corporate theme colors, LED displays, and custom hostings.</p>
+                </div>
               </div>
             </section>
 
@@ -1200,6 +1262,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=116"></script>
+    <script src="script.js?v=117"></script>
   </body>
 </html>
