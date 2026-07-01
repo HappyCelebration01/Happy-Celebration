@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=110">
+    <link rel="stylesheet" href="styles.css?v=111">
     <style>
       /* Staggered Twinkling Star Animations (Slow 8s cycle) */
       .sparkle-star {
@@ -55,6 +55,10 @@
     </style>
   </head>
   <body>
+    <!-- Ambient Background Glow Blobs -->
+    <div class="ambient-glow-blob blob-1" aria-hidden="true"></div>
+    <div class="ambient-glow-blob blob-2" aria-hidden="true"></div>
+
     <main class="app-shell" aria-label="Happy Celebration application">
       <section class="phone-frame">
         <div class="screen">
@@ -398,56 +402,56 @@
             <!-- Packages Section -->
             <section class="home-section" id="packagesSection">
               <h2 class="section-title">✦ Curated Packages ✦</h2>
-              <div class="packages-workspace" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+              <div class="packages-workspace">
                 <!-- Gold Package -->
-                <div class="package-card" style="background: rgba(130, 4, 33, 0.3); border: 1.5px solid rgba(245, 199, 110, 0.3); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); width: 300px;">
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="color: var(--gold-300); margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.5px;">🌟 Gold Package</h3>
-                    <span style="color: #fff; font-weight: 800; font-size: 16px;">₹15,000</span>
+                <div class="package-card gold-pkg">
+                  <div class="package-header">
+                    <h3 class="package-title">🌟 Gold Package</h3>
+                    <span class="package-price">₹15,000</span>
                   </div>
-                  <p style="color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.4; margin: 0;">Perfect for intimate gatherings and elegant family functions.</p>
-                  <ul style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0; padding-left: 20px; line-height: 1.6;">
+                  <p class="package-desc">Perfect for intimate gatherings and elegant family functions.</p>
+                  <ul class="package-features">
                     <li>Standard Theme Balloon & Flower Decor</li>
                     <li>Premium 1kg Custom Cake</li>
                     <li>Catering Spread for up to 30 Guests</li>
                     <li>High-Quality Audio & Playlist Setup</li>
                   </ul>
-                  <button class="primary-action book-pkg-btn" data-package-select="Gold" type="button" style="width: 100%; margin-top: 6px;">Select & Book Gold</button>
+                  <button class="primary-action book-pkg-btn" data-package-select="Gold" type="button">Select & Book Gold</button>
                 </div>
                 
                 <!-- Diamond Package -->
-                <div class="package-card" style="background: rgba(130, 4, 33, 0.3); border: 1.5px solid rgba(245, 199, 110, 0.5); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); position: relative; overflow: hidden; width: 300px;">
-                  <div style="position: absolute; top: 12px; right: -30px; background: var(--gold-300); color: #000; font-size: 9px; font-weight: 800; padding: 4px 30px; transform: rotate(45deg); text-transform: uppercase; letter-spacing: 0.5px;">Popular</div>
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="color: var(--gold-300); margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.5px;">💎 Diamond Package</h3>
-                    <span style="color: #fff; font-weight: 800; font-size: 16px;">₹35,000</span>
+                <div class="package-card diamond-pkg popular">
+                  <div class="package-badge">Popular</div>
+                  <div class="package-header">
+                    <h3 class="package-title">💎 Diamond Package</h3>
+                    <span class="package-price">₹35,000</span>
                   </div>
-                  <p style="color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.4; margin: 0;">Our most popular tier, delivering a beautiful grand experience.</p>
-                  <ul style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0; padding-left: 20px; line-height: 1.6;">
+                  <p class="package-desc">Our most popular tier, delivering a beautiful grand experience.</p>
+                  <ul class="package-features">
                     <li>Thematic Backdrop with Fairy Lights & Stage Decor</li>
                     <li>Gourmet 2-Tier Designer Cake (2kg)</li>
                     <li>Premium Buffet Catering for up to 60 Guests</li>
                     <li>Professional Host / MC with Interactive Games</li>
                     <li>DSLR Photography (3 Hours Coverage)</li>
                   </ul>
-                  <button class="primary-action book-pkg-btn" data-package-select="Diamond" type="button" style="width: 100%; margin-top: 6px;">Select & Book Diamond</button>
+                  <button class="primary-action book-pkg-btn" data-package-select="Diamond" type="button">Select & Book Diamond</button>
                 </div>
 
                 <!-- Platinum Package -->
-                <div class="package-card" style="background: rgba(130, 4, 33, 0.3); border: 1.5px solid rgba(245, 199, 110, 0.7); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); width: 300px;">
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="color: var(--gold-300); margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.5px;">👑 Platinum Package</h3>
-                    <span style="color: #fff; font-weight: 800; font-size: 16px;">₹75,000</span>
+                <div class="package-card platinum-pkg">
+                  <div class="package-header">
+                    <h3 class="package-title">👑 Platinum Package</h3>
+                    <span class="package-price">₹75,000</span>
                   </div>
-                  <p style="color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.4; margin: 0;">A luxury all-inclusive package for truly unforgettable milestones.</p>
-                  <ul style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0; padding-left: 20px; line-height: 1.6;">
+                  <p class="package-desc">A luxury all-inclusive package for truly unforgettable milestones.</p>
+                  <ul class="package-features">
                     <li>Custom 3D Theme Stage Setup & Grand Floral Entry Arch</li>
                     <li>Premium Multilayer Tier Cake (4kg)</li>
                     <li>Live Food Stations & Gourmet Buffet Catering</li>
                     <li>Professional Sound, DJ System, & LED Screen</li>
                     <li>Complete Photo & Cinematic Video Coverage</li>
                   </ul>
-                  <button class="primary-action book-pkg-btn" data-package-select="Platinum" type="button" style="width: 100%; margin-top: 6px;">Select & Book Platinum</button>
+                  <button class="primary-action book-pkg-btn" data-package-select="Platinum" type="button">Select & Book Platinum</button>
                 </div>
               </div>
             </section>
@@ -1074,66 +1078,60 @@
     </template>
 
     <template id="packagesTemplate">
-      <div class="packages-workspace" style="display: flex; flex-direction: column; gap: 16px; overflow-y: auto; padding: 4px; font-family: 'Outfit', sans-serif;">
-        <p class="packages-intro" style="color: var(--soft); font-size: 13px; line-height: 1.5; margin: 0 4px;">
+      <div class="packages-workspace">
+        <p class="packages-intro">
           Choose from our curated celebration packages. We handle everything from themed décor, gourmet spreads, and custom cakes to music and photo setups.
         </p>
         
         <!-- Gold Package -->
-        <div class="package-card" style="background: rgba(130, 4, 33, 0.3); border: 1.5px solid rgba(245, 199, 110, 0.3); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); transition: transform 0.2s ease;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="color: var(--gold-300); margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.5px;">🌟 Gold Package</h3>
-            <span style="color: #fff; font-weight: 800; font-size: 16px;">₹15,000</span>
+        <div class="package-card gold-pkg">
+          <div class="package-header">
+            <h3 class="package-title">🌟 Gold Package</h3>
+            <span class="package-price">₹15,000</span>
           </div>
-          <p style="color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.4; margin: 0;">
-            Perfect for intimate gatherings and elegant family functions.
-          </p>
-          <ul style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0; padding-left: 20px; line-height: 1.6;">
+          <p class="package-desc">Perfect for intimate gatherings and elegant family functions.</p>
+          <ul class="package-features">
             <li>Standard Theme Balloon & Flower Decor</li>
             <li>Premium 1kg Custom Cake</li>
             <li>Catering Spread for up to 30 Guests</li>
             <li>High-Quality Audio & Playlist Setup</li>
           </ul>
-          <button class="primary-action book-pkg-btn" data-package="Gold" type="button" style="width: 100%; margin-top: 6px;">Select & Book Gold</button>
+          <button class="primary-action book-pkg-btn" data-package="Gold" type="button">Select & Book Gold</button>
         </div>
 
         <!-- Diamond Package -->
-        <div class="package-card" style="background: rgba(130, 4, 33, 0.3); border: 1.5px solid rgba(245, 199, 110, 0.5); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); position: relative; overflow: hidden;">
-          <div style="position: absolute; top: 12px; right: -30px; background: var(--gold-300); color: #000; font-size: 9px; font-weight: 800; padding: 4px 30px; transform: rotate(45deg); text-transform: uppercase; letter-spacing: 0.5px;">Popular</div>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="color: var(--gold-300); margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.5px;">💎 Diamond Package</h3>
-            <span style="color: #fff; font-weight: 800; font-size: 16px;">₹35,000</span>
+        <div class="package-card diamond-pkg popular">
+          <div class="package-badge">Popular</div>
+          <div class="package-header">
+            <h3 class="package-title">💎 Diamond Package</h3>
+            <span class="package-price">₹35,000</span>
           </div>
-          <p style="color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.4; margin: 0;">
-            Our most popular tier, delivering a beautiful grand experience.
-          </p>
-          <ul style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0; padding-left: 20px; line-height: 1.6;">
+          <p class="package-desc">Our most popular tier, delivering a beautiful grand experience.</p>
+          <ul class="package-features">
             <li>Thematic Backdrop with Fairy Lights & Stage Decor</li>
             <li>Gourmet 2-Tier Designer Cake (2kg)</li>
             <li>Premium Buffet Catering for up to 60 Guests</li>
             <li>Professional Host / MC with Interactive Games</li>
             <li>DSLR Photography (3 Hours Coverage)</li>
           </ul>
-          <button class="primary-action book-pkg-btn" data-package="Diamond" type="button" style="width: 100%; margin-top: 6px;">Select & Book Diamond</button>
+          <button class="primary-action book-pkg-btn" data-package="Diamond" type="button">Select & Book Diamond</button>
         </div>
 
         <!-- Platinum Package -->
-        <div class="package-card" style="background: rgba(130, 4, 33, 0.3); border: 1.5px solid rgba(245, 199, 110, 0.7); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.3);">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="color: var(--gold-300); margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.5px;">👑 Platinum Package</h3>
-            <span style="color: #fff; font-weight: 800; font-size: 16px;">₹75,000</span>
+        <div class="package-card platinum-pkg">
+          <div class="package-header">
+            <h3 class="package-title">👑 Platinum Package</h3>
+            <span class="package-price">₹75,000</span>
           </div>
-          <p style="color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.4; margin: 0;">
-            A luxury all-inclusive package for truly unforgettable milestones.
-          </p>
-          <ul style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0; padding-left: 20px; line-height: 1.6;">
+          <p class="package-desc">A luxury all-inclusive package for truly unforgettable milestones.</p>
+          <ul class="package-features">
             <li>Custom 3D Theme Stage Setup & Grand Floral Entry Arch</li>
             <li>Premium Multilayer Tier Cake (4kg)</li>
             <li>Live Food Stations & Gourmet Buffet Catering</li>
             <li>Professional Sound, DJ System, & LED Screen</li>
             <li>Complete Photo & Cinematic Video Coverage</li>
           </ul>
-          <button class="primary-action book-pkg-btn" data-package="Platinum" type="button" style="width: 100%; margin-top: 6px;">Select & Book Platinum</button>
+          <button class="primary-action book-pkg-btn" data-package="Platinum" type="button">Select & Book Platinum</button>
         </div>
       </div>
     </template>
@@ -1152,6 +1150,6 @@
       </div>
     </template>
 
-    <script src="script.js?v=110"></script>
+    <script src="script.js?v=111"></script>
   </body>
 </html>

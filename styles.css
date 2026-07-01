@@ -1,97 +1,123 @@
 :root {
   /* Wine Red (default) */
-  --screen-bg: #150006;
+  --screen-bg: #0d0104;
   --screen-radial-1: rgba(245, 199, 110, 0.18);
   --screen-radial-2: rgba(233, 45, 86, 0.18);
-  --screen-linear: linear-gradient(180deg, rgba(77, 0, 18, 0.92), rgba(25, 0, 7, 0.98) 64%);
+  --screen-linear: linear-gradient(180deg, rgba(50, 0, 10, 0.95), rgba(10, 0, 2, 0.99) 64%);
   
-  --diagonal-glow-1: rgba(244, 63, 101, 0.33);
-  --diagonal-glow-2: rgba(168, 0, 42, 0.72);
-  --diagonal-glow-3: rgba(98, 0, 25, 0.26);
+  --diagonal-glow-1: rgba(244, 63, 101, 0.25);
+  --diagonal-glow-2: rgba(168, 0, 42, 0.5);
+  --diagonal-glow-3: rgba(98, 0, 25, 0.15);
   
-  --card-border: rgba(229, 39, 78, 0.84);
-  --card-bg-gradient: linear-gradient(145deg, rgba(130, 4, 33, 0.54), rgba(59, 0, 15, 0.78));
-  --card-bg-solid: rgba(75, 0, 19, 0.56);
-  --card-shadow-inner: rgba(255, 78, 117, 0.04);
+  --card-border: rgba(229, 39, 78, 0.35);
+  --card-bg-gradient: linear-gradient(145deg, rgba(77, 0, 18, 0.3), rgba(25, 0, 7, 0.6));
+  --card-bg-solid: rgba(40, 0, 9, 0.4);
+  --card-shadow-inner: rgba(255, 78, 117, 0.02);
   
-  --dropdown-bg: rgba(30, 4, 12, 0.95);
-  --dropdown-border: rgba(255, 255, 255, 0.15);
+  --dropdown-bg: rgba(20, 2, 8, 0.96);
+  --dropdown-border: rgba(255, 255, 255, 0.08);
 
-  --wine-950: #150006;
-  --wine-900: #25000a;
-  --wine-800: #430014;
-  --wine-700: #68051f;
+  --wine-950: #0d0104;
+  --wine-900: #1a0005;
+  --wine-800: #30000c;
+  --wine-700: #500015;
   --rose-line: #b21f3f;
   --gold-100: #fff2bd;
   --gold-300: #f5c76e;
   --gold-500: #c9822d;
   --ink: #ffffff;
-  --soft: rgba(255, 255, 255, 0.78);
-  --shadow: rgba(0, 0, 0, 0.48);
+  --soft: rgba(255, 255, 255, 0.7);
+  --shadow: rgba(0, 0, 0, 0.6);
+
+  /* Modern Glassmorphic and Layout Variables */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-blur: 16px;
+  --card-radius: 16px;
+  --glow-color: rgba(233, 45, 86, 0.4);
+  --accent-glow: 0 0 20px var(--glow-color);
+  --transition-speed: 0.3s;
+  --ease-custom: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.theme-emerald {
-  --screen-bg: #03120a;
+  --screen-bg: #010a05;
   --screen-radial-1: rgba(245, 199, 110, 0.15);
   --screen-radial-2: rgba(10, 154, 79, 0.15);
-  --screen-linear: linear-gradient(180deg, rgba(8, 60, 33, 0.92), rgba(2, 20, 11, 0.98) 64%);
-  --diagonal-glow-1: rgba(14, 172, 98, 0.33);
-  --diagonal-glow-2: rgba(10, 154, 79, 0.72);
-  --diagonal-glow-3: rgba(8, 60, 33, 0.26);
-  --card-border: rgba(10, 154, 79, 0.84);
-  --card-bg-gradient: linear-gradient(145deg, rgba(8, 60, 33, 0.54), rgba(4, 20, 11, 0.78));
-  --card-bg-solid: rgba(4, 30, 16, 0.56);
-  --card-shadow-inner: rgba(10, 154, 79, 0.04);
-  --dropdown-bg: rgba(6, 30, 16, 0.95);
-  --dropdown-border: rgba(255, 255, 255, 0.15);
+  --screen-linear: linear-gradient(180deg, rgba(5, 40, 22, 0.95), rgba(1, 10, 5, 0.99) 64%);
+  --diagonal-glow-1: rgba(14, 172, 98, 0.25);
+  --diagonal-glow-2: rgba(10, 154, 79, 0.5);
+  --diagonal-glow-3: rgba(5, 40, 22, 0.15);
+  --card-border: rgba(10, 154, 79, 0.35);
+  --card-bg-gradient: linear-gradient(145deg, rgba(5, 40, 22, 0.3), rgba(1, 10, 5, 0.6));
+  --card-bg-solid: rgba(2, 25, 13, 0.4);
+  --card-shadow-inner: rgba(10, 154, 79, 0.02);
+  --dropdown-bg: rgba(1, 15, 8, 0.96);
+  --dropdown-border: rgba(255, 255, 255, 0.08);
+
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glow-color: rgba(10, 154, 79, 0.4);
 }
 
 body.theme-sapphire {
-  --screen-bg: #020c1b;
+  --screen-bg: #010610;
   --screen-radial-1: rgba(245, 199, 110, 0.15);
   --screen-radial-2: rgba(29, 114, 185, 0.15);
-  --screen-linear: linear-gradient(180deg, rgba(8, 41, 85, 0.92), rgba(2, 12, 28, 0.98) 64%);
-  --diagonal-glow-1: rgba(29, 134, 229, 0.33);
-  --diagonal-glow-2: rgba(29, 114, 185, 0.72);
-  --diagonal-glow-3: rgba(8, 41, 85, 0.26);
-  --card-border: rgba(29, 114, 185, 0.84);
-  --card-bg-gradient: linear-gradient(145deg, rgba(8, 41, 85, 0.54), rgba(2, 12, 28, 0.78));
-  --card-bg-solid: rgba(4, 20, 51, 0.56);
-  --card-shadow-inner: rgba(29, 114, 185, 0.04);
-  --dropdown-bg: rgba(4, 20, 51, 0.95);
-  --dropdown-border: rgba(255, 255, 255, 0.15);
+  --screen-linear: linear-gradient(180deg, rgba(4, 25, 55, 0.95), rgba(1, 6, 16, 0.99) 64%);
+  --diagonal-glow-1: rgba(29, 134, 229, 0.25);
+  --diagonal-glow-2: rgba(29, 114, 185, 0.5);
+  --diagonal-glow-3: rgba(4, 25, 55, 0.15);
+  --card-border: rgba(29, 114, 185, 0.35);
+  --card-bg-gradient: linear-gradient(145deg, rgba(4, 25, 55, 0.3), rgba(1, 6, 16, 0.6));
+  --card-bg-solid: rgba(2, 15, 35, 0.4);
+  --card-shadow-inner: rgba(29, 114, 185, 0.02);
+  --dropdown-bg: rgba(1, 10, 25, 0.96);
+  --dropdown-border: rgba(255, 255, 255, 0.08);
+
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glow-color: rgba(29, 114, 185, 0.4);
 }
 
 body.theme-violet {
-  --screen-bg: #0c0216;
+  --screen-bg: #05010a;
   --screen-radial-1: rgba(245, 199, 110, 0.15);
   --screen-radial-2: rgba(139, 22, 180, 0.15);
-  --screen-linear: linear-gradient(180deg, rgba(42, 8, 69, 0.92), rgba(10, 2, 18, 0.98) 64%);
-  --diagonal-glow-1: rgba(172, 14, 229, 0.33);
-  --diagonal-glow-2: rgba(139, 22, 180, 0.72);
-  --diagonal-glow-3: rgba(42, 8, 69, 0.26);
-  --card-border: rgba(139, 22, 180, 0.84);
-  --card-bg-gradient: linear-gradient(145deg, rgba(42, 8, 69, 0.54), rgba(10, 2, 18, 0.78));
-  --card-bg-solid: rgba(24, 6, 40, 0.56);
-  --card-shadow-inner: rgba(139, 22, 180, 0.04);
-  --dropdown-bg: rgba(24, 6, 40, 0.95);
-  --dropdown-border: rgba(255, 255, 255, 0.15);
+  --screen-linear: linear-gradient(180deg, rgba(25, 5, 45, 0.95), rgba(5, 1, 10, 0.99) 64%);
+  --diagonal-glow-1: rgba(172, 14, 229, 0.25);
+  --diagonal-glow-2: rgba(139, 22, 180, 0.5);
+  --diagonal-glow-3: rgba(25, 5, 45, 0.15);
+  --card-border: rgba(139, 22, 180, 0.35);
+  --card-bg-gradient: linear-gradient(145deg, rgba(25, 5, 45, 0.3), rgba(5, 1, 10, 0.6));
+  --card-bg-solid: rgba(15, 3, 25, 0.4);
+  --card-shadow-inner: rgba(139, 22, 180, 0.02);
+  --dropdown-bg: rgba(8, 2, 15, 0.96);
+  --dropdown-border: rgba(255, 255, 255, 0.08);
+
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glow-color: rgba(139, 22, 180, 0.4);
 }
 
 body.theme-luxury {
-  --screen-bg: #09090b;
+  --screen-bg: #050507;
   --screen-radial-1: rgba(255, 255, 255, 0.05);
-  --screen-radial-2: rgba(201, 130, 45, 0.15);
-  --screen-linear: linear-gradient(180deg, rgba(28, 28, 31, 0.92), rgba(10, 10, 11, 0.98) 64%);
-  --diagonal-glow-1: rgba(245, 199, 110, 0.2);
-  --diagonal-glow-2: rgba(201, 130, 45, 0.5);
-  --diagonal-glow-3: rgba(28, 28, 31, 0.26);
-  --card-border: rgba(201, 130, 45, 0.84);
-  --card-bg-gradient: linear-gradient(145deg, rgba(28, 28, 31, 0.54), rgba(10, 10, 11, 0.78));
-  --card-bg-solid: rgba(18, 18, 20, 0.56);
-  --card-shadow-inner: rgba(201, 130, 45, 0.04);
-  --dropdown-bg: rgba(18, 18, 20, 0.95);
-  --dropdown-border: rgba(255, 255, 255, 0.15);
+  --screen-radial-2: rgba(201, 130, 45, 0.12);
+  --screen-linear: linear-gradient(180deg, rgba(18, 18, 20, 0.95), rgba(5, 5, 6, 0.99) 64%);
+  --diagonal-glow-1: rgba(245, 199, 110, 0.15);
+  --diagonal-glow-2: rgba(201, 130, 45, 0.35);
+  --diagonal-glow-3: rgba(18, 18, 20, 0.15);
+  --card-border: rgba(201, 130, 45, 0.35);
+  --card-bg-gradient: linear-gradient(145deg, rgba(18, 18, 20, 0.3), rgba(5, 5, 6, 0.6));
+  --card-bg-solid: rgba(12, 12, 14, 0.4);
+  --card-shadow-inner: rgba(201, 130, 45, 0.02);
+  --dropdown-bg: rgba(8, 8, 10, 0.96);
+  --dropdown-border: rgba(255, 255, 255, 0.08);
+
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glow-color: rgba(245, 199, 110, 0.3);
 }
 
 * {
@@ -5706,5 +5732,356 @@ body.theme-festival-holi {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 20px !important;
     max-height: none !important;
+  }
+}
+
+/* ==========================================================================
+   MODERN PREMIUM DESIGN SYSTEM OVERRIDES (UNIVERSAL)
+   ========================================================================== */
+
+/* 1. Ambient Background Glowing Blobs */
+.ambient-glow-blob {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.12;
+  z-index: -1;
+  pointer-events: none;
+  animation: blobFloat 25s ease-in-out infinite alternate;
+}
+
+.blob-1 {
+  background: var(--screen-radial-2);
+  top: -10%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.blob-2 {
+  background: var(--screen-radial-1);
+  bottom: -10%;
+  right: -10%;
+  animation-delay: 5s;
+}
+
+@keyframes blobFloat {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(80px, 50px) scale(1.15) rotate(180deg);
+  }
+  100% {
+    transform: translate(-40px, -80px) scale(0.9) rotate(360deg);
+  }
+}
+
+/* 2. Glassmorphism Overrides */
+.service-card,
+.upcoming-event-card,
+.story-card,
+.lux-form,
+.sync-card,
+.notifications-dropdown,
+.theme-dropdown {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--card-radius) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all var(--transition-speed) var(--ease-custom) !important;
+}
+
+.service-card:hover,
+.upcoming-event-card:hover {
+  transform: translateY(-5px) scale(1.01) !important;
+  border-color: rgba(245, 199, 110, 0.3) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), var(--accent-glow) !important;
+}
+
+/* 3. Package Cards Revamp */
+.package-card {
+  position: relative;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--card-radius) !important;
+  padding: 24px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all var(--transition-speed) var(--ease-custom) !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.package-card:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(245, 199, 110, 0.45) !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), var(--accent-glow) !important;
+}
+
+.package-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+}
+
+.package-title {
+  color: var(--gold-300) !important;
+  margin: 0 !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.package-price {
+  color: #fff !important;
+  font-weight: 800 !important;
+  font-size: 18px !important;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.package-desc {
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 13.5px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+.package-features {
+  color: rgba(255, 255, 255, 0.65) !important;
+  font-size: 13px !important;
+  margin: 0 !important;
+  padding-left: 20px !important;
+  line-height: 1.7 !important;
+  list-style: none !important;
+}
+
+.package-features li {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.package-features li::before {
+  content: "✦";
+  position: absolute;
+  left: -16px;
+  color: var(--gold-300);
+}
+
+.package-card.popular .package-badge {
+  position: absolute;
+  top: 14px;
+  right: -32px;
+  background: linear-gradient(135deg, var(--gold-300), var(--gold-500));
+  color: #000;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 4px 32px;
+  transform: rotate(45deg);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 4. Elegant Header and Sticky Navigation */
+.dashboard-header {
+  position: sticky !important;
+  top: 0;
+  z-index: 100;
+  background: rgba(13, 1, 4, 0.4) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(245, 199, 110, 0.12) !important;
+  padding: 12px 24px !important;
+}
+
+body.theme-emerald .dashboard-header { background: rgba(1, 10, 5, 0.4) !important; }
+body.theme-sapphire .dashboard-header { background: rgba(1, 6, 16, 0.4) !important; }
+body.theme-violet .dashboard-header { background: rgba(5, 1, 10, 0.4) !important; }
+body.theme-luxury .dashboard-header { background: rgba(5, 5, 7, 0.4) !important; }
+
+/* 5. Family Tree Infinite Canvas Styling */
+.tree-canvas-wrapper {
+  background: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    rgba(0, 0, 0, 0.25) !important;
+  background-size: 20px 20px !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--card-radius) !important;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+.tree-zoom-controls {
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 999px !important;
+  padding: 6px 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.tree-zoom-controls .zoom-btn {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+  width: 28px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tree-zoom-controls .zoom-btn:hover {
+  background: var(--gold-300) !important;
+  color: #000 !important;
+  border-color: var(--gold-300) !important;
+}
+
+/* Family Tree Node styling */
+.tree-canvas .node-circle {
+  border: 2px solid var(--gold-300) !important;
+  box-shadow: 0 0 15px var(--glow-color), inset 0 0 10px rgba(0, 0, 0, 0.8) !important;
+  transition: all 0.3s ease !important;
+}
+
+.tree-canvas .node-circle:hover {
+  transform: scale(1.15) !important;
+  box-shadow: 0 0 25px var(--glow-color), 0 0 0 4px rgba(245, 199, 110, 0.25) !important;
+}
+
+/* 6. Form elements and receipt quote view */
+.lux-form input,
+.lux-form select,
+.lux-form textarea {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  transition: all 0.25s ease !important;
+  padding: 10px 14px !important;
+}
+
+.lux-form input:focus,
+.lux-form select:focus,
+.lux-form textarea:focus {
+  outline: none !important;
+  border-color: var(--gold-300) !important;
+  box-shadow: 0 0 10px rgba(245, 199, 110, 0.25) !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Digital Receipt styled Quote Card */
+#liveQuoteCard {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px dashed rgba(245, 199, 110, 0.3) !important;
+  border-radius: var(--card-radius) !important;
+  padding: 20px !important;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+#liveQuoteCard .quote-header {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--gold-300);
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  display: block;
+  text-align: center;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+#liveQuoteCard .quote-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+}
+
+#liveQuoteCard .quote-divider {
+  border-top: 1.5px dashed rgba(255, 255, 255, 0.1);
+  margin: 12px 0;
+}
+
+#liveQuoteCard .quote-row.total {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+#liveQuoteCard .quote-row.total .quote-val {
+  color: var(--gold-300);
+  font-size: 18px;
+  text-shadow: 0 0 10px rgba(245, 199, 110, 0.3);
+}
+
+/* ==========================================================================
+   MODERN PREMIUM DESIGN SYSTEM OVERRIDES (WIDESCREEN/DESKTOP)
+   ========================================================================== */
+@media (min-width: 769px) {
+  /* Let home page grids sit in dynamic multi-column grids */
+  .packages-workspace {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 24px !important;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto !important;
+  }
+
+  .packages-workspace .package-card {
+    max-width: 100% !important;
+  }
+
+  .services-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+  }
+
+  /* Booking form and receipt split side-by-side */
+  .book-now-view form {
+    display: grid !important;
+    grid-template-columns: 1.2fr 0.8fr !important;
+    gap: 24px !important;
+  }
+
+  .book-now-view form label {
+    grid-column: span 1 !important;
+  }
+
+  .book-now-view form #liveQuoteCard {
+    grid-column: 2 / span 1 !important;
+    grid-row: 1 / span 5 !important;
+    height: fit-content;
+    align-self: start;
+    margin-top: 24px;
+  }
+
+  .book-now-view form button[type="submit"] {
+    grid-column: 1 / span 1 !important;
+  }
+  
+  .book-now-view form .form-note {
+    grid-column: 1 / span 1 !important;
   }
 }
