@@ -6087,125 +6087,96 @@ body.theme-luxury .dashboard-header { background: rgba(5, 5, 7, 0.4) !important;
 }
 
 /* ==========================================================================
-   HERO FULL-SCREEN VIDEO BACKGROUND & LIGHTBOX
+   LANDING PAGE CURATED UPDATES (REVERT HERO & STYLED PACKAGE IMAGES)
    ========================================================================== */
 
+/* Revert Hero Section height to make scroll content immediately visible */
 .hero-section {
-  position: relative;
-  width: 100%;
-  min-height: calc(100vh - 90px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  overflow: hidden;
-  padding: 80px 24px !important;
+  position: relative !important;
+  width: 100% !important;
+  min-height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  padding: 80px 20px 48px !important;
+  border-bottom: 1.5px solid rgba(245, 199, 110, 0.15) !important;
+  background: transparent !important;
+  overflow: visible !important;
 }
 
-/* Background video container */
-.hero-video-bg-container {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
-  pointer-events: none;
+@media (min-width: 769px) {
+  .hero-section {
+    padding: 120px 24px 60px !important;
+  }
 }
 
-.hero-video-bg-container .hero-loop-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: cover;
-  z-index: 1;
-}
-
-/* Linear-gradient overlay to blend the video with the theme background */
-.hero-video-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, var(--screen-bg) 88%);
-}
-
-/* Centered text container aligned over the video background */
 .logo-hero-container {
-  position: relative;
-  z-index: 5;
-  width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 780px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  position: relative !important;
+  z-index: 5 !important;
 }
 
 .logo-hero-title {
-  font-family: var(--font-display), 'Outfit', sans-serif;
-  font-size: clamp(28px, 6vw, 44px) !important;
+  font-family: var(--font-display), 'Outfit', sans-serif !important;
+  font-size: clamp(30px, 6vw, 48px) !important;
   font-weight: 800 !important;
   letter-spacing: 5px !important;
-  text-transform: uppercase;
-  color: #fff;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
-  margin-top: 12px;
+  text-transform: uppercase !important;
+  color: #fff !important;
+  text-shadow: 0 0 20px rgba(245, 199, 110, 0.25) !important;
+  margin-top: 16px !important;
 }
 
 .hero-subtitle {
-  color: rgba(255, 255, 255, 0.85) !important;
-  font-size: clamp(13px, 3.5vw, 15px) !important;
-  line-height: 1.6 !important;
-  font-family: var(--font-body), 'Poppins', sans-serif;
-  max-width: 580px;
-  margin: 16px auto 0 !important;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: clamp(13.5px, 3.5vw, 15.5px) !important;
+  line-height: 1.65 !important;
+  font-family: var(--font-body), 'Poppins', sans-serif !important;
+  max-width: 620px !important;
+  margin: 20px auto 0 !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Stats Row styling */
+/* Stats Row */
 .hero-stats-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin: 20px 0 28px 0;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  justify-content: center !important;
+  margin: 24px 0 28px 0 !important;
 }
 
 .hero-stat-badge {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(245, 199, 110, 0.25);
-  color: #fff;
-  font-size: 11.5px;
-  font-weight: 600;
-  font-family: var(--font-display), 'Outfit', sans-serif;
-  padding: 6px 14px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  letter-spacing: 0.5px;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-  transition: all 0.25s ease;
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(245, 199, 110, 0.25) !important;
+  color: #fff !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  font-family: var(--font-display), 'Outfit', sans-serif !important;
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+  transition: all 0.25s ease !important;
 }
 
 .hero-stat-badge:hover {
-  border-color: var(--gold-300);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--gold-300) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
 }
 
 .hero-cta-btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  width: 100%;
+  display: flex !important;
+  gap: 16px !important;
+  justify-content: center !important;
 }
 
 .hero-cta-btns button {
@@ -6214,35 +6185,31 @@ body.theme-luxury .dashboard-header { background: rgba(5, 5, 7, 0.4) !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
-  transition: all 0.3s var(--ease-custom) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-.hero-cta-btns .secondary-action {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid rgba(245, 199, 110, 0.3);
-  color: #fff;
+/* Styled Package Card Independent Images */
+.package-card {
+  padding: 24px !important;
 }
 
-.hero-cta-btns .secondary-action:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--gold-300);
+.package-card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s var(--ease-custom);
 }
 
-/* Play button tour style */
-.hero-cta-btns .secondary-action.video-btn {
-  background: rgba(245, 199, 110, 0.08);
-  border-color: var(--gold-300);
-  color: var(--gold-300);
+.package-card:hover .package-card-img {
+  transform: scale(1.02);
+  border-color: rgba(245, 199, 110, 0.35);
 }
 
-.hero-cta-btns .secondary-action.video-btn:hover {
-  background: var(--gold-300);
-  color: #000;
-  box-shadow: 0 0 25px rgba(245, 199, 110, 0.5) !important;
-}
-
-/* Video Lightbox Modal */
+/* Lightbox Modal styles */
 .video-lightbox {
   position: fixed;
   inset: 0;

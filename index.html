@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=113">
+    <link rel="stylesheet" href="styles.css?v=114">
     <style>
       /* Staggered Twinkling Star Animations (Slow 8s cycle) */
       .sparkle-star {
@@ -267,17 +267,7 @@
           <section class="home-view active" id="homeView" aria-label="Main menu">
             <!-- Hero Wrapper Section -->
             <div class="hero-section" id="heroSection">
-              <!-- Full Screen Looping Confetti Video Background -->
-              <div class="hero-video-bg-container" aria-hidden="true">
-                <div class="hero-video-overlay"></div>
-                <video class="hero-loop-video" autoplay loop muted playsinline poster="assets/event-lights.webp">
-                  <source src="https://assets.mixkit.co/videos/preview/mixkit-confetti-falling-on-a-black-background-31745-large.mp4" type="video/mp4">
-                  <!-- Fallback image -->
-                  <img src="assets/event-lights.webp" alt="Celebration event lights">
-                </video>
-              </div>
-
-              <!-- Center Text Content aligned over the full-screen video -->
+              <!-- Center Text Content aligned over a beautiful glowing background -->
               <div class="logo-hero-container">
                 <img class="main-monogram-logo" src="assets/hc-logo-mark.png" alt="Happy Celebration">
                 <h1 class="logo-hero-title">HAPPY CELEBRATION</h1>
@@ -301,9 +291,6 @@
                 <div class="hero-cta-btns">
                   <button class="primary-action" id="heroBookBtn" type="button">Book Event Now</button>
                   <button class="secondary-action" id="heroExploreBtn" type="button">Explore Tiers</button>
-                  <button class="secondary-action video-btn" id="heroPlayVideoBtn" type="button" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-                    <span class="play-icon">▶</span> Watch Video Tour
-                  </button>
                 </div>
               </div>
             </div>
@@ -428,6 +415,7 @@
               <div class="packages-workspace">
                 <!-- Gold Package -->
                 <div class="package-card gold-pkg">
+                  <img class="package-card-img" src="assets/float-balloons.webp" alt="Gold Package Balloons & Decor">
                   <div class="package-header">
                     <h3 class="package-title">🌟 Gold Package</h3>
                     <span class="package-price">₹15,000</span>
@@ -445,6 +433,7 @@
                 <!-- Diamond Package -->
                 <div class="package-card diamond-pkg popular">
                   <div class="package-badge">Popular</div>
+                  <img class="package-card-img" src="assets/float-arch.webp" alt="Diamond Package Theme Arch">
                   <div class="package-header">
                     <h3 class="package-title">💎 Diamond Package</h3>
                     <span class="package-price">₹35,000</span>
@@ -462,6 +451,7 @@
 
                 <!-- Platinum Package -->
                 <div class="package-card platinum-pkg">
+                  <img class="package-card-img" src="assets/float-wedding.webp" alt="Platinum Package Luxury Wedding">
                   <div class="package-header">
                     <h3 class="package-title">👑 Platinum Package</h3>
                     <span class="package-price">₹75,000</span>
@@ -1108,6 +1098,7 @@
         
         <!-- Gold Package -->
         <div class="package-card gold-pkg">
+          <img class="package-card-img" src="assets/float-balloons.webp" alt="Gold Package Balloons & Decor">
           <div class="package-header">
             <h3 class="package-title">🌟 Gold Package</h3>
             <span class="package-price">₹15,000</span>
@@ -1125,6 +1116,7 @@
         <!-- Diamond Package -->
         <div class="package-card diamond-pkg popular">
           <div class="package-badge">Popular</div>
+          <img class="package-card-img" src="assets/float-arch.webp" alt="Diamond Package Theme Arch">
           <div class="package-header">
             <h3 class="package-title">💎 Diamond Package</h3>
             <span class="package-price">₹35,000</span>
@@ -1142,6 +1134,7 @@
 
         <!-- Platinum Package -->
         <div class="package-card platinum-pkg">
+          <img class="package-card-img" src="assets/float-wedding.webp" alt="Platinum Package Luxury Wedding">
           <div class="package-header">
             <h3 class="package-title">👑 Platinum Package</h3>
             <span class="package-price">₹75,000</span>
@@ -1184,6 +1177,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=113"></script>
+    <script src="script.js?v=114"></script>
   </body>
 </html>
